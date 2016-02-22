@@ -1,1 +1,2 @@
-prueba con ssh-key
+1) prueba con ssh-key
+2) Cambiar el estado de la tarea #4 a cerrada desde linea de comandos
