@@ -11,7 +11,19 @@ var r = '<a href="/about">About Us</a>'
 });
 
 app.get("/about",(req,res) => {
-  res.send("Página de Presentacióna");
+  var r = "<html><head><h1>sos-2016-06</h1></head>"+
+  "<body>"+
+  "Leonardo Bernal Bueno <a href='https://es.wikipedia.org/wiki/Campeonato_Mundial_de_Pilotos_de_F%C3%B3rmula_1'>Original data link</a>"+
+  "<a href='/about/f1championship'> Data link on Page</a> <br>"+
+
+  "Jose Enrique Ruiz Navarro <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'>Original data link</a>  "+
+  "<a href='/about/olympicgames'> Data link on Page </a> <br>"+
+  "Maria José Sosa Llorca <a href='http://www.mismarcadores.com/futbol/espana/liga-bbva/'>Original data link</a>"+
+  //MJOSE LINK
+  "<a href='#'>Data link on Page</a> <br>"
+
+
+  res.send(r);
 });
 
 app.get("/about/f1championship",(req,res) => {
@@ -62,8 +74,9 @@ app.get("/about/olympicgames",(req,res) => {
       "<td><strong>athletes</strong></td>"+
       "<td><strong>modality</strong></td>"+
     "</tr>"
+  //write table head
   res.write(r);
-
+    //read JSON Async
       fs.readFile('olimpicgames.json','utf8',(err,content)=>{
         //ASinc
         console.log("Read data");
@@ -71,7 +84,7 @@ app.get("/about/olympicgames",(req,res) => {
 
   
   
-
+       //write each data on table
         games.forEach((rawGame)=>{
           res.write(
           "<tr>"+
@@ -83,7 +96,8 @@ app.get("/about/olympicgames",(req,res) => {
           "</tr>");
   
           });
-
+//close communication
+        res.write("</html></body>")
         res.end();
       });
     
@@ -104,11 +118,13 @@ app.get("/about/olympicgames",(req,res) => {
 
 
 
+//*******CHANGE FOR LOCAL TEST*****
 
 //////// PUERTO USADO EN HEROKU /////
-app.listen(8080);
-//app.listen(process.env.PORT); /////
+
+//app.listen(8080);
+app.listen(process.env.PORT); /////
 /////////////////////////////////////
 
-//app.listen(5000); // Descomentar solo para pruebas en local
+
 
