@@ -26,4 +26,19 @@ Connect with Heroku repo:
 heroku create
 heroku git:remote -a sos-2016-06
 ```
+Upload code to heroku
+``` bash
+git add .
+
+git commit -am "Comments for commit"
+
+git push heroku master
+``` 
+
+Upload code to github too
+
+```bash
+git push origin master
+
+```
 
