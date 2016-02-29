@@ -7,10 +7,11 @@ app.get("/",(req,res) => {
 });
 
 app.get("/about",(req,res) => {
-  res.send("Página de Presentación");
+  res.send("Página de Presentacióna");
 });
 
 app.get("/about/f1championship",(req,res) => {
+  console.log(" Request f1championship");
   res.send("<html><head><h1>Formula 1 World Championship</h1></head>"+
   "<body>"+
     "<table border='2px'>"+
@@ -38,6 +39,7 @@ app.get("/about/f1championship",(req,res) => {
     "</table>"+
   "</body>"+
   "</html>");
+
 });
 
 //////// PUERTO USADO EN HEROKU /////
