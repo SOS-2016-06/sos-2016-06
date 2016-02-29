@@ -12,4 +12,18 @@ apt-get update
 apt-get install -y ruby
 apt-get install -y heroku-toolbelt
 ```
+For Windows:
+
+https://toolbelt.heroku.com/ and click click and more clicks
+
+Login in heroku client:
+``` bash
+heroku login
+```
+Connect with Heroku repo:
+
+``` bash
+heroku create
+heroku git:remote -a sos-2016-06
+```
 
