@@ -58,7 +58,6 @@ app.get("/about/f1championship",(req,res) => {
           "<td>"+rawWins.country+"</td>"+
           "<td>"+rawWins.wins+"</td>"+
           "</tr>");
-
           });
 //close communication
         res.write("</table></body></html>")
