@@ -122,13 +122,14 @@ app.get("/about/bbvafootball",(req,res) => {
   "<td><strong>results</strong></td>"+
   "</tr>"
   res.write(r);
+//read.file
 
   fs.readFile('bbvafootball.json','utf8',(err,content)=>{
     console.log("Read data");
     football= JSON.parse(content);
 
 
-    
+
            football.forEach((rawGame)=>{
              res.write(
              "<tr>"+
