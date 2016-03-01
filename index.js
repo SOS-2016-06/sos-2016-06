@@ -82,8 +82,8 @@ app.get("/about/olympicgames",(req,res) => {
         console.log("Read data");
        games= JSON.parse(content);
 
-  
-  
+
+
        //write each data on table
         games.forEach((rawGame)=>{
           res.write(
@@ -94,16 +94,50 @@ app.get("/about/olympicgames",(req,res) => {
           "<td>"+rawGame.athletes+"</td>"+
           "<td>"+rawGame.modality+"</td>"+
           "</tr>");
-  
+
           });
 //close communication
         res.write("</html></body>")
         res.end();
       });
-    
 
 
-  
+      app.get("/about/bbvafootball",(req,res) => {
+        var football=[];
+        console.log(" Request BBVAfootball");
+        var r = "<html><head><h1>Football Results liga BBVA Spain</h1></head>"+
+        "<body>"+
+        "<table border='2px'>"+
+        "<tr>"+
+        "<td><strong>match day</strong></td>"+
+        "<td><strong>period</strong></td>"+
+        "<td><strong>city</strong></td>"+
+        "<td><strong>football team 1</strong></td>"+
+        "<td><strong>football team 2</strong></td>"+
+        "<td><strong>results</strong></td>"+
+        "</tr>"
+        res.write(r);
+        fs.readFile('bbvafootball.json','utf8',(err,content)=>{
+          console.log("Read data");
+          football= JSON.parse(content);
+          //write each data on table
+
+           football.forEach((rawGame)=>{
+             res.write(
+             "<tr>"+
+             "<td>"+rawGame.matchday+"</td>"+
+             "<td>"+rawGame.period+"</td>"+
+             "<td>"+rawGame.city+"</td>"+
+             "<td>"+rawGame.footballteam1+"</td>"+
+             "<td>"+rawGame.footballteam2+"</td>"+
+             "<td>"+rawGame.results+"</td>"+
+             "</tr>");
+
+             });
+   //close communication
+           res.write("</html></body>")
+           res.end();
+         });
 
 });
 
@@ -127,10 +161,3 @@ app.get("/about/olympicgames",(req,res) => {
 //app.listen(8080);
 app.listen(process.env.PORT); /////
 /////////////////////////////////////
-
-
-
-
-
-
-
