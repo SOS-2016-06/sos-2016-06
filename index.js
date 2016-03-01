@@ -110,39 +110,39 @@ app.get("/about/olympicgames",(req,res) => {
     });
 
 
-app.get("/about/bbvafootball",(req,res) => {
-  var football=[];
-  console.log(" Request BBVAfootball");
-  var r = "<html><head><h1>Football Results liga BBVA Spain</h1></head>"+
+app.get("/about/ncaabasketball",(req,res) => {
+  var bask=[];
+  console.log(" Request NCAABasketball");
+  var r = "<html><head><h1>Champions of Basketball Division I in NCAA</h1></head>"+
   "<body>"+
   "<table border='2px'>"+
-  "This is the results to the BBVA football liga in the last years:"+
+  "This is the results of the champions of Basketball Division I in NCAA from 1939 to 2015:"+
   "<tr>"+
-  "<td><strong>match day</strong></td>"+
-  "<td><strong>period</strong></td>"+
+  "<td><strong>champion</strong></td>"+
+  "<td><strong>year</strong></td>"+
   "<td><strong>city</strong></td>"+
-  "<td><strong>football team 1</strong></td>"+
-  "<td><strong>football team 2</strong></td>"+
-  "<td><strong>results</strong></td>"+
+  "<td><strong>runnerup</strong></td>"+
+  "<td><strong>championresults</strong></td>"+
+  "<td><strong>runnerupresults</strong></td>"+
   "</tr>"
   res.write(r);
 //read.file
 
-  fs.readFile('bbvafootball.json','utf8',(err,content)=>{
+  fs.readFile('ncaabasketball.json','utf8',(err,content)=>{
     console.log("Read data");
-    football= JSON.parse(content);
+    bask= JSON.parse(content);
 
 
 
-           football.forEach((rawGame)=>{
+             bask.forEach((rawGame)=>{
              res.write(
              "<tr>"+
-             "<td>"+rawGame.matchday+"</td>"+
-             "<td>"+rawGame.period+"</td>"+
+             "<td>"+rawGame.champion+"</td>"+
+             "<td>"+rawGame.year+"</td>"+
              "<td>"+rawGame.city+"</td>"+
-             "<td>"+rawGame.footballteam1+"</td>"+
-             "<td>"+rawGame.footballteam2+"</td>"+
-             "<td>"+rawGame.results+"</td>"+
+             "<td>"+rawGame.runnerup+"</td>"+
+             "<td>"+rawGame.championresults+"</td>"+
+             "<td>"+rawGame.runnerupresults+"</td>"+
              "</tr>");
 
              });
@@ -162,6 +162,6 @@ app.get("/about/bbvafootball",(req,res) => {
 
 //////// PUERTO USADO EN HEROKU /////
 
-//app.listen(8080);
-app.listen(process.env.PORT); /////
+app.listen(8080);
+//app.listen(process.env.PORT); /////
 /////////////////////////////////////
