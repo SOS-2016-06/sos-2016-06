@@ -18,7 +18,7 @@ app.get("/about",(req,res) => {
 
   "- Jose Enrique Ruiz Navarro: olympicgames <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'> Original data link </a>  "+
   "<a href='/about/olympicgames'> Data link on Page </a> <br>"+
-  "- Maria José Sosa Llorca: bbvafootball <a href='https://es.wikipedia.org/wiki/Anexo:Campeones_de_la_Divisi%C3%B3n_I_de_Baloncesto_Masculino_de_la_NCAA'> Original data link </a>"+
+  "- Maria José Sosa Llorca: ncaabasketball <a href='https://es.wikipedia.org/wiki/Anexo:Campeones_de_la_Divisi%C3%B3n_I_de_Baloncesto_Masculino_de_la_NCAA'> Original data link </a>"+
   //MJOSE LINK
   "<a href='/about/ncaabasketball'>Data link on Page</a> <br>"
 
@@ -162,6 +162,6 @@ app.get("/about/ncaabasketball",(req,res) => {
 
 //////// PUERTO USADO EN HEROKU /////
 
-app.listen(8080);
-//app.listen(process.env.PORT); /////
+//app.listen(8080);
+app.listen(process.env.PORT); /////
 /////////////////////////////////////
