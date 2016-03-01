@@ -20,7 +20,7 @@ app.get("/about",(req,res) => {
   "<a href='/about/olympicgames'> Data link on Page </a> <br>"+
   "Maria José Sosa Llorca <a href='http://www.mismarcadores.com/futbol/espana/liga-bbva/'>Original data link</a>"+
   //MJOSE LINK
-  "<a href='#'>Data link on Page</a> <br>"
+  "<a href='/about/bbvafootball'>Data link on Page</a> <br>"
 
 
   res.send(r);
@@ -117,6 +117,7 @@ app.get("/about/olympicgames",(req,res) => {
         "<td><strong>results</strong></td>"+
         "</tr>"
         res.write(r);
+
         fs.readFile('bbvafootball.json','utf8',(err,content)=>{
           console.log("Read data");
           football= JSON.parse(content);
@@ -138,6 +139,7 @@ app.get("/about/olympicgames",(req,res) => {
            res.write("</html></body>")
            res.end();
          });
+        });
 
 });
 
@@ -158,6 +160,6 @@ app.get("/about/olympicgames",(req,res) => {
 
 //////// PUERTO USADO EN HEROKU /////
 
-//app.listen(8080);
-app.listen(process.env.PORT); /////
+app.listen(8080);
+//app.listen(process.env.PORT); /////
 /////////////////////////////////////
