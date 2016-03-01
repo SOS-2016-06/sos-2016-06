@@ -3,7 +3,6 @@ var app = express();
 var fs=require("fs");
 
 
-// CallBack Asíncrono
 app.get("/",(req,res) => {
 var r = '<a href="/about">About Us</a>'
 
@@ -28,36 +27,43 @@ app.get("/about",(req,res) => {
 });
 
 app.get("/about/f1championship",(req,res) => {
+  var wins = [];
   console.log(" Request f1championship");
-  res.send("<html><head><h1>Formula 1 World Championship</h1></head>"+
+  var r = "<html><head><h1>Olimpics Games</h1></head>"+
   "<body>"+
   "This is the results to the Formula 1 Championship in the last years:"+
     "<table border='2px'>"+
     "<tr>"+
       "<td><strong>team</strong></td>"+
-      "<td><strong>pilot</strong></td>"+
       "<td><strong>year</strong></td>"+
+      "<td><strong>pilot</strong></td>"+
       "<td><strong>country</strong></td>"+
       "<td><strong>wins</strong></td>"+
-    "</tr>"+
-    "<tr>"+
-      "<td>Ferrari</td>"+
-      "<td>Michael Schumacher</td>"+
-      "<td>2004</td>"+
-      "<td>Alemania</td>"+
-      "<td>13</td>"+
-    "</tr>"+
-    "<tr>"+
-      "<td>Renault</td>"+
-      "<td>Fernando Alonso</td>"+
-      "<td>2006</td>"+
-      "<td>Spain</td>"+
-      "<td>7</td>"+
-    "</tr>"+
-    "</table>"+
-  "</body>"+
-  "</html>");
+    "</tr>"
+  //write table head
+  res.write(r);
+    //read JSON Async
+      fs.readFile('f1championship.json','utf8',(err,content)=>{
+        //ASinc
+        console.log("Read data");
+        wins = JSON.parse(content);
 
+       //write each data on table
+        wins.forEach((rawWins)=>{
+          res.write(
+          "<tr>"+
+          "<td>"+rawWins.team+"</td>"+
+          "<td>"+rawWins.year+"</td>"+
+          "<td>"+rawWins.pilot+"</td>"+
+          "<td>"+rawWins.country+"</td>"+
+          "<td>"+rawWins.wins+"</td>"+
+          "</tr>");
+
+          });
+//close communication
+        res.write("</table></body></html>")
+        res.end();
+      });
 });
 
 
@@ -100,7 +106,7 @@ app.get("/about/olympicgames",(req,res) => {
 
           });
 //close communication
-        res.write("</html></body>")
+        res.write("</table></body></html>")
         res.end();
       });
     });
@@ -141,19 +147,11 @@ app.get("/about/bbvafootball",(req,res) => {
 
              });
    //close communication
-           res.write("</html></body>")
+           res.write("</table></body></html>")
            res.end();
          });
 
 });
-
-
-
-
-
-
-
-
 
 
 
