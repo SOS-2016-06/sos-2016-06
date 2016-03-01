@@ -13,12 +13,13 @@ var r = '<a href="/about">About Us</a>'
 app.get("/about",(req,res) => {
   var r = "<html><head><h1>sos-2016-06</h1></head>"+
   "<body>"+
-  "Leonardo Bernal Bueno <a href='https://es.wikipedia.org/wiki/Campeonato_Mundial_de_Pilotos_de_F%C3%B3rmula_1'>Original data link</a>"+
+  "Welcome to our proyect! We are the group number 6 in the SOS proyect. We are working about the sports. <br/>We are:<br/>"+
+  "Leonardo Bernal Bueno: f1championship <a href='https://es.wikipedia.org/wiki/Campeonato_Mundial_de_Pilotos_de_F%C3%B3rmula_1'> Original data link </a>"+
   "<a href='/about/f1championship'> Data link on Page</a> <br>"+
 
-  "Jose Enrique Ruiz Navarro <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'>Original data link</a>  "+
+  "Jose Enrique Ruiz Navarro: olympicgames <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'> Original data link </a>  "+
   "<a href='/about/olympicgames'> Data link on Page </a> <br>"+
-  "Maria José Sosa Llorca <a href='http://www.mismarcadores.com/futbol/espana/liga-bbva/'>Original data link</a>"+
+  "Maria José Sosa Llorca: bbvafootball <a href='http://www.mismarcadores.com/futbol/espana/liga-bbva/'> Original data link </a>"+
   //MJOSE LINK
   "<a href='/about/bbvafootball'>Data link on Page</a> <br>"
 
@@ -160,6 +161,6 @@ app.get("/about/olympicgames",(req,res) => {
 
 //////// PUERTO USADO EN HEROKU /////
 
-app.listen(8080);
-//app.listen(process.env.PORT); /////
+//app.listen(8080);
+app.listen(process.env.PORT); /////
 /////////////////////////////////////
