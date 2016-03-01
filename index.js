@@ -40,6 +40,7 @@ app.get("/about/f1championship",(req,res) => {
       "<td><strong>country</strong></td>"+
       "<td><strong>wins</strong></td>"+
     "</tr>"
+    
   //write table head
   res.write(r);
     //read JSON Async
