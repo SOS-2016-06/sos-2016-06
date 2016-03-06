@@ -162,7 +162,7 @@ app.get("/about/ncaabasketball",(req,res) => {
 //*******CHANGE FOR LOCAL TEST*****
 
 //////// PUERTO USADO EN HEROKU /////
-
+var port = (process.env.PORT|| 8080)
 //app.listen(8080);
-app.listen(process.env.PORT); /////
+app.listen(port); /////
 /////////////////////////////////////
