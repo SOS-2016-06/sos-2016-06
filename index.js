@@ -121,7 +121,54 @@ app.get("/about/olympicsgamesAsin",(req,res) => {
 
 app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.html'));
 
+
+
+
+
+//RENDER TEMPLATE
+
+app.set('views', __dirname+"/templates");
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+
+
+
+
+
+app.get("/about/olympicsgamesrender",(req,res) => {
+  var games=[];
+  console.log(" Request OlimpicsGames template");
+  
+
+    //read JSON Async
+      fs.readFile('olympicsgames.json','utf8',(err,content)=>{
+        //ASinc
+        console.log("Read data and RENDER");
+       games= JSON.parse(content);
+
+
+        res.render('olympics',{
+          titulo : "Olympics",
+
+          content:games
+
+            });
+        
+      });
+
+
+    });
+
+
+
 //////
+
+
+
+
+
+
 
 app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketball.html'));
 
