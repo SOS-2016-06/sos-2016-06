@@ -3,6 +3,11 @@ var app = express();
 var fs=require("fs");
 
 
+app.post("/time",(req,res) => {
+var date = new Date();
+res.send(date);
+});
+
 app.get("/",(req,res) => {
 var r = '<a href="/about">About Us</a>'
 
@@ -109,9 +114,6 @@ app.get("/about/olympicgames",(req,res) => {
         res.end();
       });
     });
-
-
-
 
 
 app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketball.html'));
