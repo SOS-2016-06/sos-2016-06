@@ -4,7 +4,9 @@ var fs=require("fs");
 
 //TIME
 app.get("/time",(req,res) => {
-var date = new Date();
+var date = new Date().toISOString().
+  replace(/T/, ' ').      
+  replace(/\..+/, '');
 res.send(date);
 });
 
@@ -17,22 +19,13 @@ var r = '<a href="/about">About Us</a>'
   res.send(r);
 });
 
-app.get("/about",(req,res) => {
-  var r = "<html><head><h1>sos-2016-06</h1></head>"+
-  "<body>"+
-  "Welcome to our proyect! We are the group number 6 in the SOS proyect. We are working about the sports. <br/>We are:<br/><br/>"+
-  "- Leonardo Bernal Bueno: f1championship <a href='https://es.wikipedia.org/wiki/Campeonato_Mundial_de_Pilotos_de_F%C3%B3rmula_1'> Original data link </a>"+
-  "<a href='/about/f1championship'> Data link on Page</a> <br>"+
-
-  "- Jose Enrique Ruiz Navarro: olympicgames <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'> Original data link </a>  "+
-  "<a href='/about/olympicsgames'> Data link on Page </a> <br>"+
-  "- Maria José Sosa Llorca: ncaabasketball <a href='https://es.wikipedia.org/wiki/Anexo:Campeones_de_la_Divisi%C3%B3n_I_de_Baloncesto_Masculino_de_la_NCAA'> Original data link </a>"+
-  //MJOSE LINK
-  "<a href='/about/ncaabasketball'>Data link on Page</a> <br>"
 
 
-  res.send(r);
-});
+
+
+
+//TODO REMOVE HTML
+app.use("/about", express.static(__dirname+'/static/about.html'));
 
 app.get("/about/f1championship",(req,res) => {
   var wins = [];
@@ -75,49 +68,11 @@ app.get("/about/f1championship",(req,res) => {
 });
 
 /////
-//////Olympics GAmes processes
-
-
-app.get("/about/olympicsgamesAsin",(req,res) => {
-  var games=[];
-  console.log(" Request OlimpicsGames");
-  var r = "<html><head><h1>Olimpics Games</h1></head>"+
-  "<body>"+
-    "<table border='2px'>"+
-    "This is the results to the Olympic Games:"+
-    "<tr>"+
-      "<td><strong>city</strong></td>"+
-      "<td><strong>year</strong></td>"+
-      "<td><strong>sports</strong></td>"+
-      "<td><strong>athletes</strong></td>"+
-      "<td><strong>modality</strong></td>"+
-    "</tr>"
-  //write table head
-  res.write(r);
-    //read JSON Async
-      fs.readFile('olimpicsgames.json','utf8',(err,content)=>{
-        //ASinc
-        console.log("Read data");
-       games= JSON.parse(content);
+//////************************Olympics GAmes processes*************************
+//****************************************************************************
 
 
 
-       //write each data on table
-        games.forEach((rawGame)=>{
-          res.write(
-          "<tr>"+
-          "<td>"+rawGame.city+"</td>"+
-          "<td>"+rawGame.year+"</td>"+
-          "<td>"+rawGame.sportsnumber+"</td>"+
-          "<td>"+rawGame.athletes+"</td>"+
-          "<td>"+rawGame.modality+"</td>"+
-          "</tr>");
-
-          });
-        res.write("</table></body></html>")
-        res.end();
-      });
-    });
 
 app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.html'));
 
@@ -125,7 +80,7 @@ app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.
 
 
 
-//RENDER TEMPLATE
+//RENDER TEMPLATE WITH CONTEXT
 
 app.set('views', __dirname+"/templates");
 app.engine('html', require('ejs').renderFile);
