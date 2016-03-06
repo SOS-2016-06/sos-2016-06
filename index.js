@@ -2,11 +2,14 @@ var express = require("express");
 var app = express();
 var fs=require("fs");
 
-
-app.post("/time",(req,res) => {
+//TIME
+app.get("/time",(req,res) => {
 var date = new Date();
 res.send(date);
 });
+
+
+
 
 app.get("/",(req,res) => {
 var r = '<a href="/about">About Us</a>'
@@ -22,7 +25,7 @@ app.get("/about",(req,res) => {
   "<a href='/about/f1championship'> Data link on Page</a> <br>"+
 
   "- Jose Enrique Ruiz Navarro: olympicgames <a href='https://es.wikipedia.org/wiki/Espa%C3%B1a_en_los_Juegos_Ol%C3%ADmpicos'> Original data link </a>  "+
-  "<a href='/about/olympicgames'> Data link on Page </a> <br>"+
+  "<a href='/about/olympicsgames'> Data link on Page </a> <br>"+
   "- Maria José Sosa Llorca: ncaabasketball <a href='https://es.wikipedia.org/wiki/Anexo:Campeones_de_la_Divisi%C3%B3n_I_de_Baloncesto_Masculino_de_la_NCAA'> Original data link </a>"+
   //MJOSE LINK
   "<a href='/about/ncaabasketball'>Data link on Page</a> <br>"
@@ -71,10 +74,11 @@ app.get("/about/f1championship",(req,res) => {
       });
 });
 
+/////
+//////Olympics GAmes processes
 
 
-
-app.get("/about/olympicgames",(req,res) => {
+app.get("/about/olympicsgamesAsin",(req,res) => {
   var games=[];
   console.log(" Request OlimpicsGames");
   var r = "<html><head><h1>Olimpics Games</h1></head>"+
@@ -91,7 +95,7 @@ app.get("/about/olympicgames",(req,res) => {
   //write table head
   res.write(r);
     //read JSON Async
-      fs.readFile('olimpicgames.json','utf8',(err,content)=>{
+      fs.readFile('olimpicsgames.json','utf8',(err,content)=>{
         //ASinc
         console.log("Read data");
        games= JSON.parse(content);
@@ -115,6 +119,9 @@ app.get("/about/olympicgames",(req,res) => {
       });
     });
 
+app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.html'));
+
+//////
 
 app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketball.html'));
 
