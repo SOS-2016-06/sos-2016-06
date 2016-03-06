@@ -23,7 +23,7 @@ heroku login
 Connect with Heroku repo:
 
 ``` bash
-heroku create
+
 heroku git:remote -a sos-2016-06
 ```
 Upload code to heroku
