@@ -1,0 +1,33 @@
+
+<html><head><h1><%= titulo %></h1></head>
+  <body>
+    <table border='2px'>
+
+
+    <tr>
+      <td><strong>team</strong></td>
+      <td><strong>year</strong></td>
+      <td><strong>pilot</strong></td>
+      <td><strong>country</strong></td>
+      <td><strong>wins</strong></td>
+    </tr>
+
+
+<% if (content.length) { %>
+
+    <% content.forEach(function(item,index){ %>
+      <tr>
+      <td><%=  item.team %></td>
+      <td><%=  item.year %></td>
+      <td><%=  item.pilot %></td>
+      <td><%=  item.country %></td>
+      <td><%=  item.wins %></td>
+      </tr>
+
+    <% }) %>
+
+<% } %>
+
+    <table>
+  </body>
+</html>

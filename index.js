@@ -5,67 +5,48 @@ var fs=require("fs");
 //TIME
 app.get("/time",(req,res) => {
 var date = new Date().toISOString().
-  replace(/T/, ' ').      
+  replace(/T/, ' ').
   replace(/\..+/, '');
 res.send(date);
 });
 
+//RENDER TEMPLATE WITH CONTEXT
 
+app.set('views', __dirname+"/templates");
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 
 app.get("/",(req,res) => {
-var r = '<a href="/about">About Us</a>'
-
+var r = '<a href="/about">About Us</a></br>' +
+        '<a href="/time">Time</a>'
   res.send(r);
 });
-
-
-
 
 
 
 //TODO REMOVE HTML
 app.use("/about", express.static(__dirname+'/static/about.html'));
 
-app.get("/about/f1championship",(req,res) => {
-  var wins = [];
-  console.log(" Request f1championship");
-  var r = "<html><head><h1>Olimpics Games</h1></head>"+
-  "<body>"+
-  "This is the results to the Formula 1 Championship in the last years:"+
-    "<table border='2px'>"+
-    "<tr>"+
-      "<td><strong>team</strong></td>"+
-      "<td><strong>year</strong></td>"+
-      "<td><strong>pilot</strong></td>"+
-      "<td><strong>country</strong></td>"+
-      "<td><strong>wins</strong></td>"+
-    "</tr>"
+//*************************************************************************
+//************************ F1 Championship (LEO) **************************
+//*************************************************************************
 
-  //write table head
-  res.write(r);
-    //read JSON Async
-      fs.readFile('f1championship.json','utf8',(err,content)=>{
-        //ASinc
-        console.log("Read data");
-        wins = JSON.parse(content);
+app.use("/about/f1championship", express.static(__dirname + '/static/f1championship.html'));
 
-       //write each data on table
-        wins.forEach((rawWins)=>{
-          res.write(
-          "<tr>"+
-          "<td>"+rawWins.team+"</td>"+
-          "<td>"+rawWins.year+"</td>"+
-          "<td>"+rawWins.pilot+"</td>"+
-          "<td>"+rawWins.country+"</td>"+
-          "<td>"+rawWins.wins+"</td>"+
-          "</tr>");
-          });
-//close communication
-        res.write("</table></body></html>")
-        res.end();
-      });
+app.get("/about/f1championshiprender",(req,res) => {
+  var wins=[];
+  //read JSON Async
+  fs.readFile('f1championship.json','utf8',(err,content) => {
+    //ASinc
+    wins = JSON.parse(content);
+    res.render('f1championship',{
+      titulo : "F1 Championship",
+      content : wins
+    });
+  });
 });
+
 
 /////
 //////************************Olympics GAmes processes*************************
@@ -78,23 +59,10 @@ app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.
 
 
 
-
-
-//RENDER TEMPLATE WITH CONTEXT
-
-app.set('views', __dirname+"/templates");
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
-
-
-
-
-
 app.get("/about/olympicsgamesrender",(req,res) => {
   var games=[];
   console.log(" Request OlimpicsGames template");
-  
+
 
     //read JSON Async
       fs.readFile('olympicsgames.json','utf8',(err,content)=>{
@@ -109,7 +77,7 @@ app.get("/about/olympicsgamesrender",(req,res) => {
           content:games
 
             });
-        
+
       });
 
 
@@ -118,8 +86,6 @@ app.get("/about/olympicsgamesrender",(req,res) => {
 
 
 //////
-
-
 
 
 
@@ -179,7 +145,6 @@ app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketbal
 //*******CHANGE FOR LOCAL TEST*****
 
 //////// PUERTO USADO EN HEROKU /////
-var port = (process.env.PORT|| 8080)
-//app.listen(8080);
+var port = (process.env.PORT || 8080)
 app.listen(port); /////
 /////////////////////////////////////
