@@ -93,6 +93,16 @@ app.get("/about/olympicsgamesrender",(req,res) => {
 
 app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketball.html'));
 
+app.get("/about/ncaabasketballrender",(req,res) => {
+  var bask=[];
+  fs.readFile('ncaabasketball.json','utf8',(err,content) => {
+    bask = JSON.parse(content);
+    res.render('ncaabasketball',{
+      titulo : "Champions of Basketball Division I in NCAA",
+      content : bask
+    });
+  });
+});
 
 // app.get("/about/ncaabasketball",(req,res) => {
 //   var bask=[];

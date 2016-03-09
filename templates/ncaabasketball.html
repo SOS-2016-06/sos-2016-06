@@ -1,0 +1,34 @@
+<html><head><h1><%= titulo %></h1></head>
+  <body>
+    <table border='2px'>
+
+
+    <tr>
+      <td><strong>champion</strong></td>
+      <td><strong>year</strong></td>
+      <td><strong>city</strong></td>
+      <td><strong>runnerup</strong></td>
+      <td><strong>championresults</strong></td>
+      <td><strong>runnerupresults</strong></td>
+    </tr>
+
+
+<% if (content.length) { %>
+
+    <% content.forEach(function(item,index){ %>
+      <tr>
+      <td><%=  item.champion %></td>
+      <td><%=  item.year %></td>
+      <td><%=  item.city %></td>
+      <td><%=  item.runnerup %></td>
+      <td><%=  item.championresults %></td>
+      <td><%=  item.runnerupresults %></td>
+      </tr>
+
+    <% }) %>
+
+<% } %>
+
+    <table>
+  </body>
+</html>
