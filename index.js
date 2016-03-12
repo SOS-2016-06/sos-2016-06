@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 var fs=require("fs");
+//var bodyParser = require("body-parser")
 
 //TIME
 app.get("/time",(req,res) => {
@@ -54,6 +55,9 @@ app.get("/about/f1championshiprender",(req,res) => {
 
 
 
+var apiquique = require('./lib/api-quique');
+
+app.use(apiquique)
 
 app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.html'));
 
@@ -82,6 +86,9 @@ app.get("/about/olympicsgamesrender",(req,res) => {
 
 
     });
+
+
+
 
 
 
