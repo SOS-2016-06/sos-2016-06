@@ -1,0 +1,16 @@
+<html><head><h1><%= titulo %></h1></head>
+
+  <body>
+   
+    	<% content.forEach(function(item,index){ %>
+      
+      <b>NAME COMPOSER: </b><%=  item.composer %>
+      <b>SYMPHONY DURATION:</b><%=  item.duration %>
+      <b>SYMPHONY NONBER:</b> <%=  item.number %><br>
+     
+      
+
+    <% }) %>
+    
+  </body>
+</html>
