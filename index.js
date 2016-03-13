@@ -114,54 +114,6 @@ app.get("/about/ncaabasketballrender",(req,res) => {
   });
 });
 
-// app.get("/about/ncaabasketball",(req,res) => {
-//   var bask=[];
-//   console.log(" Request NCAABasketball");
-//   var r = "<html><head><h1>Champions of Basketball Division I in NCAA</h1></head>"+
-//   "<body>"+
-//   "<table border='2px'>"+
-//   "This is the results of the champions of Basketball Division I in NCAA from 1939 to 2015:"+
-//   "<tr>"+
-//   "<td><strong>champion</strong></td>"+
-//   "<td><strong>year</strong></td>"+
-//   "<td><strong>city</strong></td>"+
-//   "<td><strong>runnerup</strong></td>"+
-//   "<td><strong>championresults</strong></td>"+
-//   "<td><strong>runnerupresults</strong></td>"+
-//   "</tr>"
-//   res.write(r);
-// //read.file
-//
-//     fs.readFile('ncaabasketball.json','utf8',(err,content)=>{
-//     console.log("Read data");
-//     bask= JSON.parse(content);
-//
-//
-//
-//              bask.forEach((rawGame)=>{
-//              res.write(
-//              "<tr>"+
-//              "<td>"+rawGame.champion+"</td>"+
-//              "<td>"+rawGame.year+"</td>"+
-//              "<td>"+rawGame.city+"</td>"+
-//              "<td>"+rawGame.runnerup+"</td>"+
-//              "<td>"+rawGame.championresults+"</td>"+
-//              "<td>"+rawGame.runnerupresults+"</td>"+
-//              "</tr>");
-//
-//              });
-//    //close communication
-//            res.write("</table></body></html>")
-//            res.end();
-//          });
-//
-// });
-
-
-
-
-
-
 //*******CHANGE FOR LOCAL TEST*****
 
 //////// PUERTO USADO EN HEROKU /////
