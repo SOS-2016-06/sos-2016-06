@@ -35,8 +35,11 @@ app.use("/about", express.static(__dirname+'/static/about.html'));
 //*************************************************************************
 //************************ F1 Championship (LEO) **************************
 //*************************************************************************
-var seriesleo = require('./lib/api-leo');
-app.use(seriesleo)
+var seriesleo = require('./lib/api-leo/series');
+app.use(seriesleo);
+
+var f1 = require('./lib/api-leo/f1');
+app.use(f1);
 
 app.use("/about/f1championship", express.static(__dirname + '/static/f1championship.html'));
 
