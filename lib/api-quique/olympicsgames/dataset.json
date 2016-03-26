@@ -1,0 +1,5 @@
+[{"city":"Athens","year":"1986","sportsnumber":0,"athletes":0,"modality":"summer"},
+ {"city":"Paris","year":"1900","sportsnumber":3,"athletes":8,"modality":"summer"},
+ {"city":"Montreal","year":"1976","sportsnumber":13,"athletes":114,"modality":"summer"},
+ {"city":"London","year":"2012","sportsnumber":23,"athletes":278,"modality":"summer"},
+ {"city":"Vancouver","year":"2010","sportsnumber":18,"athletes":7,"modality":"winter"}]

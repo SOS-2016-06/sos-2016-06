@@ -61,11 +61,19 @@ app.get("/about/f1championshiprender",(req,res) => {
 //////************************Olympics GAmes processes*************************
 //****************************************************************************
 
+//own modules
+
+var symphonies = require('./lib/api-quique/symphonies');
+
+app.use(symphonies);
 
 
-var apiquique = require('./lib/api-quique');
+var olympicsgames = require('./lib/api-quique/olympicsgames');
 
-app.use(apiquique)
+app.use(olympicsgames);
+
+
+
 
 app.use("/about/olympicsgames", express.static(__dirname+'/static/olympicsgames.html'));
 
