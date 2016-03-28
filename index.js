@@ -110,9 +110,11 @@ app.get("/about/olympicsgamesrender",(req,res) => {
 
 //////
 
-var apimjose = require('./lib/api-mjose');
-
+var apimjose = require('./lib/api-mjose/films');
 app.use(apimjose)
+
+var basketb = require('./lib/api-mjose/basketball');
+app.use(basketb);
 
 app.use("/about/ncaabasketball", express.static(__dirname+'/static/ncaabasketball.html'));
 
