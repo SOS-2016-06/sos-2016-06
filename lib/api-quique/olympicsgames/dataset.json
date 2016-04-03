@@ -2,5 +2,5 @@
  {"city":"paris","year":1900,"sportsnumber":3,"athletes":8,"modality":"summer"},
  {"city":"montreal","year":1976,"sportsnumber":13,"athletes":114,"modality":"summer"},
  {"city":"london","year":2012,"sportsnumber":23,"athletes":278,"modality":"summer"},
- {"city":"london","year":1948,"sportsnumber":9,"athletes":64,"modality":"summer"},
+ {"city":"london","year":1948,"sportsnumber":9,"athletes":64,"modality":"winter"},
  {"city":"vancouver","year":2010,"sportsnumber":18,"athletes":7,"modality":"winter"}]
