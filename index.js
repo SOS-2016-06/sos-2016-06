@@ -5,7 +5,6 @@ var fs=require("fs");
 //app.use(bodyParser.json())
 
 
-
 //TIME
 app.get("/time",(req,res) => {
 var date = new Date().toISOString().
