@@ -1,10 +1,13 @@
 var express = require("express");
 var app = express();
 var fs=require("fs");
-//var bodyParser = require("body-parser")
-//app.use(bodyParser.json())
 
 
+//JSON client
+
+app.use("/clientJSON", express.static(__dirname+'/static/clientJSON.html'));
+
+app.use('/', express.static(__dirname+'/static/'));
 //TIME
 app.get("/time",(req,res) => {
 var date = new Date().toISOString().
@@ -61,6 +64,8 @@ app.get("/about/f1championshiprender",(req,res) => {
 //****************************************************************************
 
 //own modules
+
+
 
 var symphonies = require('./lib/api-quique/symphonies');
 
