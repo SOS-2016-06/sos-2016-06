@@ -51,18 +51,21 @@ $( document ).ready(function() {
 		});
 		
 
-		request.done(function(data,status,jqXHR) {
-			var str = JSON.stringify(data,null, "\t");
+		request.done(function(datajson,status,jqXHR) {
+			var str = JSON.stringify(datajson,null, "\t");
 				// Tratamiento en caso de exito
 				$( "#data" ).text( str.replace(/\\/g, "") );
 
-				$.each(data, function(i) {
-					//console.log(data);
-					$( "#list" ).append("<li>"+ +"</li>");
+				console.log(typeof datajson)
+
+			$.each(datajson, function(index, element) {
+            $( "#list" ).append("<li>"+ datajson[index] +"</li>");
+       		 });
+					
   					
-					});
+					
 				
-		console.log(data)
+		
 
 			});
 
