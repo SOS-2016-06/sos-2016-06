@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script   src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 
 <script>
 $( document ).ready(function() {
@@ -21,11 +23,11 @@ $( document ).ready(function() {
     	var request = $.ajax({
  		url: val,
  		type:type,
-		 contentType: "application/json",
+		contentType: "application/json",
  		data: data,
- 		 statusCode: {
-      		200: function (response) {
-         $( "#codestatus" ).text( "Ok" );
+ 		statusCode: {
+      200: function (response) {
+        $( "#codestatus" ).text( "Ok" );
       },
       201: function (response) {
          $( "#codestatus" ).text( "Created" );
@@ -66,7 +68,7 @@ $( document ).ready(function() {
 			request.always(function(jqXHR, status, statusText) {
 
  				// Tratamiento en cualquier caso
- 				console.log(statusText)
+ 				
 				$( "#status" ).text( request.status );
 				$( "#log" ).append("   "+request.status );
 				
