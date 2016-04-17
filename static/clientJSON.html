@@ -9,104 +9,90 @@
 <script>
 $( document ).ready(function() {
 
-
 	console.log("jquery Ready")
-    $("#button").click(function(){
-    	var type = $('input[type=radio]:checked').attr("id");
-    	var val =  $("#url").val();
-    	var data = $("#payload").val();
-    	$( "#data" ).empty();
-    	$( "#log" ).append( "<br/>"+type+"   "+val );
+  $("#button").click(function(){
+		var type = $('input[type=radio]:checked').attr("id");
+    var val =  $("#url").val();
+    var data = $("#payload").val();
+    $( "#data" ).empty();
+    $( "#log" ).append( "<br/>"+type+"   "+val );
 
-
-
-
-    	var request = $.ajax({
- 		url: val,
- 		type:type,
-		contentType: "application/json",
- 		data: data,
- 		statusCode: {
-      200: function (response) {
-        $( "#codestatus" ).text( "Ok" );
-      },
-      201: function (response) {
+    var request = $.ajax({
+ 			url: val,
+ 			type:type,
+			contentType: "application/json",
+ 			data: data,
+ 			statusCode: {
+      	200: function (response) {
+					$( "#codestatus" ).text( "Ok" );
+      	},
+      	201: function (response) {
          $( "#codestatus" ).text( "Created" );
-      },
-      400: function (response) {
-        $( "#codestatus" ).text( "Bad Request" );
-      },
-      401: function (response) {
-        $( "#codestatus" ).text( "Unauthorized" );
-      },
-      403: function (response) {
-         $( "#codestatus" ).text( "Forbidden" );
-      },
-      404: function (response) {
-         $( "#codestatus" ).text( "Not Found" );
-      },
-      405: function (response) {
-        $( "#codestatus" ).text( "Method Not Allowed" );
-      },
-      409: function (response) {
-        $( "#codestatus" ).text( "Conflict" );
-      }
-   }, 
+      	},
+      	400: function (response) {
+					$( "#codestatus" ).text( "Bad Request" );
+      	},
+      	401: function (response) {
+					$( "#codestatus" ).text( "Unauthorized" );
+      	},
+      	403: function (response) {
+					$( "#codestatus" ).text( "Forbidden" );
+      	},
+      	404: function (response) {
+					$( "#codestatus" ).text( "Not Found" );
+				},
+      	405: function (response) {
+					$( "#codestatus" ).text( "Method Not Allowed" );
+      	},
+      	409: function (response) {
+        	$( "#codestatus" ).text( "Conflict" );
+      	}
+			},
+		});
+		console.log(request)
 
-			});
-    	console.log(request)
-			request.done(function(data,status,jqXHR) {
-				
-				var str = JSON.stringify(data,null, "\t");
-				
-				//output(str);
-				//output(syntaxHighlight(str));
-				
+		request.done(function(data,status,jqXHR) {
+			var str = JSON.stringify(data,null, "\t");
+				// Tratamiento en caso de exito
 				$( "#data" ).text( str.replace(/\\/g, "") );
-				
- 					// Tratamiento en caso de exito
+				data.forEach((d) => {
+					$( "#list" ).append("<li>"+ JSON.stringify(d,null, '\t') +"</li>");
 				});
-			request.always(function(jqXHR, status, statusText) {
+			});
 
+			request.always(function(jqXHR, status, statusText) {
  				// Tratamiento en cualquier caso
- 				
 				$( "#status" ).text( request.status );
 				$( "#log" ).append("   "+request.status );
-				
-				});
-    	
+			});
     });
 });
-	
+
 </script>
 
 </head>
 <body>
-<h1>JQuery REST Client</h1>
-URL: <input id="url" size="30" value="/api/v1/olympicsgames?apikey=user"/>
-GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
-POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
-PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
-DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
-<br/>
-Payload: <input id="payload" size="60"/>
-<br/><br/>
-<button type="button" id="button">SEND </button>
-<br/><hr/>
-<h2>Code Status</h2>
-HTTP Status: <span id="status"></span>
-<span id="codestatus"></span>
-<br/><hr/>
-<h2>Response</h2>
-<span id="data"></span>
-<br/><hr/>
-
-<ul id="list">
-
-	
-</ul>
-<hr/>
-Log: <span id="log"></span>
+	<h1>JQuery REST Client</h1>
+	URL: <input id="url" size="30" value="/api/v1/olympicsgames?apikey=user"/>
+	GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
+	POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
+	PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
+	DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+	<br/>
+	Payload: <input id="payload" size="60"/>
+	<br/><br/>
+	<button type="button" id="button">SEND </button>
+	<br/><hr/>
+	<h2>Code Status</h2>
+	HTTP Status: <span id="status"></span>
+	<span id="codestatus"></span>
+	<h2>Response</h2>
+	<hr/>
+	<span id="data"></span>
+	<br/><hr/>
+	<ul id="list">
+	</ul>
+	<hr/>
+	Log: <span id="log"></span>
 </body>
-
 </html>
