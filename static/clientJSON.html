@@ -8,6 +8,7 @@
 
 <script>
 $( document ).ready(function() {
+	var count = 0;
 
 	console.log("jquery Ready")
   $("#button").click(function(){
@@ -15,6 +16,7 @@ $( document ).ready(function() {
     var val =  $("#url").val();
     var data = $("#payload").val();
     $( "#data" ).empty();
+    $( "#list" ).empty();
     $( "#log" ).append( "<br/>"+type+"   "+val );
 
     var request = $.ajax({
@@ -54,25 +56,32 @@ $( document ).ready(function() {
 		request.done(function(datajson,status,jqXHR) {
 			var str = JSON.stringify(datajson,null, "\t");
 				// Tratamiento en caso de exito
-				$( "#data" ).text( str.replace(/\\/g, "") );
+				console.log(datajson);
+				if (typeof datajson == "object"){
 
-				console.log(typeof datajson)
+					$( "#data" ).text(str);	
+				}
 
+			
+			console.log(typeof datajson[0]);
+			if (typeof datajson[0] == "object"){
 			$.each(datajson, function(index, element) {
-            $( "#list" ).append("<li>"+ element +"</li>");
-       		 });
-					
-  					
-					
 				
-		
+
+            	$( "#list" ).append("<li>"+ JSON.stringify(element,null, "\t") +"</li>");
+       		 	});
+			}else if (typeof datajson=="object"){
+            	$( "#list" ).append("<li>"+ JSON.stringify(datajson,null, "\t") +"</li>");
+
+			}
+
 
 			});
 
 			request.always(function(jqXHR, status, statusText) {
  				// Tratamiento en cualquier caso
 				$( "#status" ).text( request.status );
-				$( "#log" ).append("   "+request.status );
+				$( "#log" ).append("   "+request.status);
 			});
     });
 });
