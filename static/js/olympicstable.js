@@ -15,7 +15,12 @@ request.done(function(dataJson) {
        
         	var table = buildTable(dataJson);
         	$("#tableOlympics").html(table);
-        	console.log(status);
+        	$('#tableExport').DataTable( {
+        	dom: 'Bfrtip',
+        	buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
        
                
 		});
@@ -37,15 +42,24 @@ request.always(function(jqXHR, status, statusText) {
 
 
 function buildTable(dataJson) {
-		var table = $('<table  class="highlight" width="800" border = 2 >');
-		var start = '<tr align="right" >';
+		var table = $('<table id="tableExport" class="highlight" width="800" border = 2 >');
+		var start = '<thead>';
+		start += '<tr align="right" >';
+		var end = '<tfoot>';
+		end += '<tr align="right" >';
 				for (var header in dataJson[0]) {
 
         	start += '<th data-field="'+header+'">' + header + '</th>';
+        	end += '<th data-field="'+header+'">' + header + '</th>';
     	}
 
 		start += '</tr>';
+		start += '</thead>';
+		end += '</tr>';
+		end += '</tfoot>';
 		$(start).appendTo(table);
+		$(end).appendTo(table);
+		$(table).append('<tbody>');
 		$.each(dataJson, (index, element) => {
 			  var row = '<tr align="right">';
 			  $.each(element, (key, val) => {
@@ -55,11 +69,17 @@ function buildTable(dataJson) {
 
 			  $(table).append(row);
 		});
+		$(table).append('</tbody>');
 		$(table).append('</table>');
 
 		return table;
+
+
+
+
 };
 		
+
 
 
 
