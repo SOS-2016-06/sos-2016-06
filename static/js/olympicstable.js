@@ -37,11 +37,11 @@ request.always(function(jqXHR, status, statusText) {
 
 
 function buildTable(dataJson) {
-		var table = $('<table width="800" border = 2 >');
+		var table = $('<table  class="highlight" width="800" border = 2 >');
 		var start = '<tr align="right" >';
 				for (var header in dataJson[0]) {
 
-        	start += '<th>' + header + '</th>';
+        	start += '<th data-field="'+header+'">' + header + '</th>';
     	}
 
 		start += '</tr>';
