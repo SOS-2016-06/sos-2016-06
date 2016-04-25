@@ -8,7 +8,7 @@ $( document ).ready(function() {
 
 
   request.done(function(data) {
-    var table = $('<table width="800" border = 2 >');
+    var table = $('<table width="800" border = 2 class="table table-hover"><thead>');
     // Header
 		var start = '<tr align="right" >';
     for (var header in data[0]) {
@@ -28,7 +28,7 @@ $( document ).ready(function() {
       $(table).append(row);
 		});
 
-    $(table).append('</table>');
+    $(table).append('</thead></table>');
     $("#tableF1").html(table);
     console.log(status);
   });
