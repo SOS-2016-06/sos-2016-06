@@ -6,15 +6,35 @@
 <script   src="../../js/jquery-2.2.3.min.js"></script>
 <script   src="../../js/clientjson-0.1.js"></script>
 
+	<link rel="stylesheet" href="jqueryIU/jquery-ui.css">
+  <script src="jqueryIU/jquery-1.10.2.js"></script>
+  <script src="jqueryIU/jquery-ui.js"></script>
+
+  <script>
+  $(function() {
+    $(".radio").button();
+  });
+  </script>
 
 </head>
 <body>
 	<h1>JQuery REST Client</h1>
-	URL: <input id="url" size="30" value="/api/v1/olympicsgames?apikey=user"/>
-	GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
-	POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
-	PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
-	DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+
+	URL: <input id="url" size="30" value="/api/v1/f1championships?apikey=user"/>
+
+	<div class="radio">
+	<input name="radio" type="radio" id="GET" checked="checked"><label for="radio1">GET</label></input> &nbsp;&nbsp;
+</div>
+<div class="radio">
+	<input name="radio" type="radio" id="POST"><label for="radio2">POST</label></input> &nbsp;&nbsp;
+</div>
+<div class="radio">
+	PUT <input name="radio" type="radio" id="PUT" /> &nbsp;&nbsp;
+</div>
+<div class="radio">
+	DELETE <input name="radio" type="radio" id="DELETE" /> &nbsp;&nbsp;
+</div>
+
 	<br/>
 	Payload: <input id="payload" size="60"/>
 	<br/><br/>
