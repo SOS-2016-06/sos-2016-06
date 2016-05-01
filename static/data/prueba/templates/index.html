@@ -1,0 +1,29 @@
+<!--si no hay usuarios que mostrar, con la directiva ng-show comprobamos
+el array usuarios y mostramos un mensaje-->
+<div class="panel-custom" ng-show="olympicsgames.length == 0">
+	<h3 class="subheader">No hay usuarios para mostrar</h2>
+</div>
+
+<input type="text" ng-model="search"  ng-show="olympicsgames.length > 0" />
+
+
+
+<table width="800">
+
+
+  <tr ng-repeat="olympicsgame in olympicsgames | filter: search">
+    <td>{{ olympicsgame.city }}</td>
+    <td>{{ olympicsgame.year }}</td>
+    <td>{{ olympicsgame.sportsnumber }}</td>
+    <td>{{ olympicsgame.athletes}}</td>
+    <td>{{ olympicsgame.modality}}</td>
+    <td><a href="#/info/{{id}}" class="button expand success">Info</a></td>
+    <td><a href="#/edit/{{id}}" class="button expand success">Editar</a></td>
+    <td><a href="#/remove/{{id}}" class="button expand alert">Eliminar</a></td>
+
+
+  </tr>
+</table>
+
+
+	
