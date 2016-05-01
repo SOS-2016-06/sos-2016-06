@@ -1,5 +1,5 @@
 app.controller("appController", function appController($scope, $http){
-		$scope.olympicsgames = {};
+		$scope.olympicsgames = [];
 	 	$http.get('/api/v1/olympicsgames?apikey=user').
         success(function(data) {
             $scope.olympicsgames = data;
