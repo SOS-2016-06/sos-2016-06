@@ -22,9 +22,15 @@
           <td><a href="#/remove/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
         </tr>
       </tbody>
+
+
+
       <tfoot>
         <td colspan="3">
           <div class="pagination">
+
+
+
             <ul>
               <li ng-class="prevPageDisabled()">
                 <a href ng-click="prevPage()">« Prev</a>
@@ -33,7 +39,9 @@
                 <a href="#">{{n+1}}</a>
               </li>
               <li ng-class="nextPageDisabled()">
-                <a href ng-click="nextPage()">Next »</a>
+                <a href ng-click="nextPage()" ng-model="changue" >Next »</a>
+              
+
               </li>
             </ul>
           </div>

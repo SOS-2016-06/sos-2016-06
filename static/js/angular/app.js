@@ -41,5 +41,10 @@ app.config(function($routeProvider){
  		templateUrl : "templates/index2.html",
  		controller : "PaginationCtrl"
  	})
+ 	.when("/search", {
+ 		title: 'search',
+ 		templateUrl : "templates/search.html",
+ 		controller : "searchctrl"
+ 	})
  	.otherwise({ redirectTo : "/"})
 })

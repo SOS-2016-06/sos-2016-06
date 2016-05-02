@@ -1,0 +1,47 @@
+<form name="myForm1" ng-submit="searchavanced()">
+        <label>From:
+        <input type="text" name="input" ng-model="from">
+        </label>
+        <label>To:
+        <input type="text" name="input" ng-model="to">
+        </label>
+        
+        <button type="submit" class="btn-large waves-effect waves-light red">Search
+        </button>
+ </form>
+
+
+
+<div  ng-show="searcholympic.length > 0 ">
+
+<table width="800">
+<thead>
+<tr>
+    <td>City</td>
+    <td>Year</td>
+    <td>Sportsnumber</td>
+    <td>Athletes</td>
+    <td>Modality</td>
+</tr>
+</thead>
+
+<tbody>
+
+  <tr ng-repeat="olympicsgame in searcholympic ">
+    <td>{{ olympicsgame.city }}</td>
+    <td>{{ olympicsgame.year }}</td>
+    <td>{{ olympicsgame.sportsnumber }}</td>
+    <td>{{ olympicsgame.athletes}}</td>
+    <td>{{ olympicsgame.modality}}</td>
+    <td><a href="#/info/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating blue"> <i class="material-icons">info_outline</i></a></td>
+    <td><a href="#/edit/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating green"><i class="material-icons">mode_edit</i></a></td>
+    <td><a href="#/remove/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
+
+
+  </tr>
+</tbody>
+
+
+</table>
+
+</div>

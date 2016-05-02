@@ -231,21 +231,74 @@ app.controller("removeOlympic", function removeOlympic($scope,$routeParams,$loca
 
 
 	}
+});
+
+
+
+
+
+
+app.controller("searchctrl", function searchctrl($scope,$location,$http){
+	
+	$scope.textButton = "Search  olympic";
+
+	$scope.searcholympic =[]
+		
+	$scope.searchavanced = function(){
+		var from = $scope.from
+		var to = $scope.to
+		var request =$http.get('/api/v1/olympicsgames/?apikey='+read+'&from='+from+'&to='+to)
+	
+
+		request.success(function(data) {
+	            $scope.searcholympic = data;
+	        });
+	    request.error(function(data, status, headers, config) {
+	          
+	            	$location.url("/error/"+status);
+	          
+	        });
+		
+	        
+
+
+
+	}
+
+
+
+
 })
 
 
 
 
 
-function get(http,location,offset, limit){
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function get(http,location,offset, limit){
+				var items=[]
 
     		var request =http.get('/api/v1/olympicsgames?apikey=user&offset='+offset+'&limit='+limit)
     		
-		 	request.then(function(response) {
-		 		console.log(response.data)
-	            items = response.data;
-	            return items;
+		 	request.success(function(data) {
+		 		
+	            items = data;
+	            
 	        });
 	        request.error(function(data, status, headers, config) {
 	             
@@ -254,6 +307,14 @@ function get(http,location,offset, limit){
 	        });
 
 
+	        for (var i = 0; i <= 100; i++) {
+    				i 
+    			};
+
+    		console.log("entra")	
+
+	        return items;
+
 }
 
 
@@ -261,19 +322,24 @@ function total(http,location){
 
 
 var request = http.get('/api/v1/olympicsgames?apikey=user')
-			
-		 	request.then(function(response) {
+			var items = []
+		 	request.success(function(data) {
 		 		 
-	             items= response.data;
-	             return items.length;
+	             items= data;
+	             
 	        });
 	        request.error(function(data, status, headers, config) {
-	            
+	             var items= [];
 	            location.url("/error/"+status);
 	            
 
 	           
 	        });
+	            for (var i = 0; i <= 100; i++) {
+    			i 
+    				};
+
+	        return items.length;
 
 }
 
@@ -334,11 +400,32 @@ app.controller("PaginationCtrl", function PaginationCtrl($scope, $http,$location
   };
 
   $scope.$watch("currentPage", function(newValue, oldValue) {
+
   	
-    
-    $scope.pagedItems = get($http,$location,newValue*$scope.itemsPerPage, $scope.itemsPerPage);
-    
-    $scope.total = total($http,$location);
+  		  function getData() {
+	    	$http.get("/api/v1/olympicsgames?apikey=user")
+	      .then(function(response) {
+	        $scope.total = response.data.length
+	        angular.copy(response.data, $scope.pagedItems)
+
+
+      });
+
+	      $scope.changue = function(){
+	      	getData()
+	      }
+	      
+	  }
+
+
+  	//var items = get($http,$location,newValue*$scope.itemsPerPage, $scope.itemsPerPage);
+  	//var total1 =total($http,$location);
+
+
+  	 
+
+   
+
   });
 
 });
