@@ -36,11 +36,6 @@ app.config(function($routeProvider){
  		templateUrl : "templates/error.html",
  		controller : "statusError"
  	})
- 	.when("/test", {
- 		title: 'Pagination APIKEY',
- 		templateUrl : "templates/index2.html",
- 		controller : "PaginationCtrl"
- 	})
  	.when("/search", {
  		title: 'search',
  		templateUrl : "templates/search.html",

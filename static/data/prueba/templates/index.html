@@ -9,6 +9,8 @@
 
 
 <div  ng-show="olympicsgames.length > 0 ">
+
+
 <table width="800">
 <thead>
 <tr>
@@ -41,10 +43,12 @@
             <ul>
               <li ng-class="prevPageDisabled()">
                 <a href ng-click="prevPage()">« Prev</a>
+              </li> 
+              <li ng-repeat="n in init "  ng-class="{active: n == currentPage}"  ng-click="setPage(n)">
+                <a href="#">{{n}}</a>
               </li>
-              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-                <a href="#">{{n+1}}</a>
-              </li>
+              
+              
               <li ng-class="nextPageDisabled()">
                 <a href ng-click="nextPage()">Next »</a>
               </li>

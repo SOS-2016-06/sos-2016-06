@@ -1,24 +1,131 @@
 
 var read =""
 var write = ""
+var offset = 0
+var limit = 5
+var currentPage = 0
+var total = 0
+
 app.controller("searchTable", function appController($scope, $http, $location){
 		$scope.olympicsgames = [];
+		$scope.currentPage = currentPage
+
 		$scope.noAPIKEY = true
+
+
+		
+		$scope.range = function(){
+
+			return $scope.init
+		}
+
+
+
 		if (read != ""){
-			$scope.noAPIKEY = false
-		 	var request =$http.get('/api/v1/olympicsgames?apikey='+read)
 
-		 	request.success(function(data) {
-	            $scope.olympicsgames = data;
-	        });
-	        request.error(function(data, status, headers, config) {
-	            
-	            $location.url("/error/"+status);
-	            
+			 	var request =$http.get('/api/v1/olympicsgames?apikey='+read)
 
-	           
-	        });
-	       }
+			 	request.success(function(data) {
+			 		total = Math.ceil(data.length/limit)
+		            //$scope.olympicsgames = data;
+		            $scope.init = Array.apply(null, Array(Math.ceil(data.length/limit))).map(function (_, i) {return i;});
+		            
+		            
+		            
+		        });
+		        request.error(function(data, status, headers, config) {
+		            
+		            $location.url("/error/"+status);
+		            
+
+		           
+		        });
+
+
+
+		        var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+
+			 	request.success(function(data) {
+		         $scope.olympicsgames = data; });
+		}
+
+
+	    $scope.setPage = function(n){
+
+	    	if(currentPage>n){
+	    		offset= (n*limit);
+	    		currentPage = n;
+	    		console.log(">")
+
+	    	}else if(currentPage<n){
+	    		offset =(n*limit);
+	    		currentPage = n; 
+	    		console.log("<")
+
+
+	    	}else{
+	    		offset=offset
+	    		currentPage = n
+	    		console.log("=")
+	    	}
+	    	
+	    	
+	    	
+
+	    	
+			
+		} 
+
+
+
+
+		$scope.prevPage = function(){
+			
+
+			currentPage = currentPage-1; 
+			offset= (currentPage*limit);
+			
+
+
+			 var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+
+			 	request.success(function(data) {
+		         $scope.olympicsgames = data; });
+
+			 	$scope.currentPage = currentPage
+
+
+		}
+
+		$scope.nextPage = function(){
+			
+
+			currentPage = currentPage+1; 
+			offset= (currentPage*limit);
+
+			var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+
+			 	request.success(function(data) {
+		         $scope.olympicsgames = data; });
+
+			 	$scope.currentPage = currentPage
+
+
+		}
+
+		$scope.nextPageDisabled = function() {
+    	return $scope.currentPage === total-1 ? "disabled" : "";
+  		};
+
+
+  		$scope.prevPageDisabled = function() {
+    	return $scope.currentPage === 0 ? "disabled" : "";
+  		};
+
+
+
+	       
+	      
 	    
 	
 	
@@ -192,7 +299,9 @@ app.controller("editOlympic", function editOlympic($scope,$routeParams,$location
 	}
 })
 
-//eliminamos el usuario dependiendo de su id
+
+
+
 app.controller("removeOlympic", function removeOlympic($scope,$routeParams,$location,$http){
 	
 
@@ -258,15 +367,7 @@ app.controller("searchctrl", function searchctrl($scope,$location,$http){
 	            	$location.url("/error/"+status);
 	          
 	        });
-		
-	        
-
-
-
-	}
-
-
-
+}
 
 })
 
@@ -290,142 +391,10 @@ app.controller("searchctrl", function searchctrl($scope,$location,$http){
 
 
 
-function get(http,location,offset, limit){
-				var items=[]
-
-    		var request =http.get('/api/v1/olympicsgames?apikey=user&offset='+offset+'&limit='+limit)
-    		
-		 	request.success(function(data) {
-		 		
-	            items = data;
-	            
-	        });
-	        request.error(function(data, status, headers, config) {
-	             
-	            location.url("/error/"+status);
-
-	        });
-
-
-	        for (var i = 0; i <= 100; i++) {
-    				i 
-    			};
-
-    		console.log("entra")	
-
-	        return items;
-
-}
-
-
-function total(http,location){
-
-
-var request = http.get('/api/v1/olympicsgames?apikey=user')
-			var items = []
-		 	request.success(function(data) {
-		 		 
-	             items= data;
-	             
-	        });
-	        request.error(function(data, status, headers, config) {
-	             var items= [];
-	            location.url("/error/"+status);
-	            
-
-	           
-	        });
-	            for (var i = 0; i <= 100; i++) {
-    			i 
-    				};
-
-	        return items.length;
-
-}
 
 
 
 
 
-app.controller("PaginationCtrl", function PaginationCtrl($scope, $http,$location) {
-
-  $scope.itemsPerPage = 5;
-  $scope.currentPage = 0;
-
-  $scope.range = function() {
-    var rangeSize = 3;
-    var ret = [];
-    var start;
-
-    start = $scope.currentPage;
-    if ( start > $scope.pageCount()-rangeSize ) {
-      start = $scope.pageCount()-rangeSize;
-    }
-
-    for (var i=start; i<start+rangeSize; i++) {
-      ret.push(i);
-    }
-    return ret;
-  };
 
 
-  $scope.prevPage = function() {
-    if ($scope.currentPage > 0) {
-      $scope.currentPage--;
-    }
-  };
-
-  $scope.prevPageDisabled = function() {
-    return $scope.currentPage === 0 ? "disabled" : "";
-  };
-
-  $scope.nextPage = function() {
-    if ($scope.currentPage < $scope.pageCount() - 1) {
-      $scope.currentPage++;
-    }
-  };
-
-  $scope.nextPageDisabled = function() {
-    return $scope.currentPage === $scope.pageCount() - 1 ? "disabled" : "";
-  };
-
-  $scope.pageCount = function() {
-    return Math.ceil($scope.total/$scope.itemsPerPage);
-  };
-
-  $scope.setPage = function(n) {
-    if (n > 0 && n < $scope.pageCount()) {
-      $scope.currentPage = n;
-    }
-  };
-
-  $scope.$watch("currentPage", function(newValue, oldValue) {
-
-  	
-  		  function getData() {
-	    	$http.get("/api/v1/olympicsgames?apikey=user")
-	      .then(function(response) {
-	        $scope.total = response.data.length
-	        angular.copy(response.data, $scope.pagedItems)
-
-
-      });
-
-	      $scope.changue = function(){
-	      	getData()
-	      }
-	      
-	  }
-
-
-  	//var items = get($http,$location,newValue*$scope.itemsPerPage, $scope.itemsPerPage);
-  	//var total1 =total($http,$location);
-
-
-  	 
-
-   
-
-  });
-
-});

@@ -1,5 +1,7 @@
 
 <div ng-controller="PaginationCtrl">
+
+  <input type="text" name="input" ng-model="items.length"/>
     <table class="table table-striped">
       <thead>
        <tr>
@@ -11,7 +13,7 @@
     </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="olympicsgame in pagedItems">
+        <tr ng-repeat="olympicsgame in items">
           <td>{{ olympicsgame.city }}</td>
           <td>{{ olympicsgame.year }}</td>
           <td>{{ olympicsgame.sportsnumber }}</td>
@@ -38,8 +40,8 @@
               <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
                 <a href="#">{{n+1}}</a>
               </li>
-              <li ng-class="nextPageDisabled()">
-                <a href ng-click="nextPage()" ng-model="changue" >Next »</a>
+              <li ng-class="nextPageDisabled()" >
+                <a href ng-click="nextPage()" >Next »</a>
               
 
               </li>
