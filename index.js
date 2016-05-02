@@ -68,7 +68,7 @@ app.get("/about/f1championshiprender",(req,res) => {
 
 //own modules
 
-
+app.use('/olympicsgames', express.static(__dirname+'/static/data/olympicsgamesclient/'));
 
 var symphonies = require('./lib/api-quique/symphonies');
 
