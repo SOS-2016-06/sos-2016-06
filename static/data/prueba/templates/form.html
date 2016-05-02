@@ -1,31 +1,38 @@
-<form>
-  <fieldset>
-    <legend>{{ textButton }}</legend>
 
-    <div class="row">
-      <div class="large-12 columns">
-        <label>Nombre</label>
-        <input type="text" placeholder="Nombre" ng-model="usuario.nombre" required>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-4 columns">
-        <label>Edad</label>
-        <input type="number" placeholder="Edad" ng-model="usuario.edad" required>
-      </div>
-      <div class="large-4 columns">
-        <label>Profesión</label>
-        <input type="text" placeholder="Profesión" ng-model="usuario.profesion" required>
-      </div>
-      <div class="large-4 columns">
-        <div class="row collapse">
-          <label>Web</label>
-            <input type="url" placeholder="Web" ng-model="usuario.web" required>
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input  id="city" type="text" class="validate" ng-model="olympic.city" required>
+          <label for="city">City</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="year" type="text" class="validate"  ng-model="olympic.year" required>
+          <label for="last_name">Year</label>
         </div>
       </div>
-    </div>
-    <button type="submit"  class="button large-12">{{ textButton }}</button>
-     <a href="#/" class="button large-12 success">Volver al inicio</a>
-  </fieldset>
-</form>
+      
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="text" type="text" class="validate"  ng-model="olympic.sportsnumber" required>
+          <label for="sportsnumber">Sports number</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="athletes" type="text" class="validate"  ng-model="olympic.athletes" required>
+          <label for="athletes">Athletes</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="modality" type="text" class="validate"  ng-model="olympic.modality" required>
+          <label for="modality">Modality</label>
+        </div>
+      </div>
+      <button type="submit"  class="btn-large waves-effect waves-light red">{{ textButton }}</button>
+     <a href="#/" class="btn-large waves-effect waves-light red">Back to home</a>
+    </form>
+  </div>

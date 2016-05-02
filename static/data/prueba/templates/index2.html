@@ -1,0 +1,45 @@
+
+<div ng-controller="PaginationCtrl">
+    <table class="table table-striped">
+      <thead>
+       <tr>
+    <td>City</td>
+    <td>Year</td>
+    <td>Sportsnumber</td>
+    <td>Athletes</td>
+    <td>Modality</td>
+    </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="olympicsgame in pagedItems">
+          <td>{{ olympicsgame.city }}</td>
+          <td>{{ olympicsgame.year }}</td>
+          <td>{{ olympicsgame.sportsnumber }}</td>
+          <td>{{ olympicsgame.athletes}}</td>
+          <td>{{ olympicsgame.modality}}</td>
+          <td><a href="#/info/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating blue"> <i class="material-icons">info_outline</i></a></td>
+          <td><a href="#/edit/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating green"><i class="material-icons">mode_edit</i></a></td>
+          <td><a href="#/remove/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <td colspan="3">
+          <div class="pagination">
+            <ul>
+              <li ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage()">« Prev</a>
+              </li>
+              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                <a href="#">{{n+1}}</a>
+              </li>
+              <li ng-class="nextPageDisabled()">
+                <a href ng-click="nextPage()">Next »</a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tfoot>
+    </table>
+  </div>
+
+	

@@ -1,17 +1,26 @@
-<!--si no hay usuarios que mostrar, con la directiva ng-show comprobamos
-el array usuarios y mostramos un mensaje-->
 
 
-<div class="panel-custom" ng-show="olympicsgames.length == 0">
-	<h3 class="subheader">No hay usuarios para mostrar</h2>
+<div class="row" ng-controller="searchTable" >
+<div  ng-show="olympicsgames.length == 0 && noAPIKEY == false">
+	<h3 >No hay olimpicgame para mostrar</h3>
 </div>
 
 <input type="text" ng-model="search"  ng-show="olympicsgames.length > 0" />
 
 
-
+<div  ng-show="olympicsgames.length > 0 ">
 <table width="800">
+<thead>
+<tr>
+    <td>City</td>
+    <td>Year</td>
+    <td>Sportsnumber</td>
+    <td>Athletes</td>
+    <td>Modality</td>
+</tr>
+</thead>
 
+<tbody>
 
   <tr ng-repeat="olympicsgame in olympicsgames | filter: search">
     <td>{{ olympicsgame.city }}</td>
@@ -19,13 +28,38 @@ el array usuarios y mostramos un mensaje-->
     <td>{{ olympicsgame.sportsnumber }}</td>
     <td>{{ olympicsgame.athletes}}</td>
     <td>{{ olympicsgame.modality}}</td>
-    <td><a href="#/info/{{id}}" class="button expand success">Info</a></td>
-    <td><a href="#/edit/{{id}}" class="button expand success">Editar</a></td>
-    <td><a href="#/remove/{{id}}" class="button expand alert">Eliminar</a></td>
+    <td><a href="#/info/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating blue"> <i class="material-icons">info_outline</i></a></td>
+    <td><a href="#/edit/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating green"><i class="material-icons">mode_edit</i></a></td>
+    <td><a href="#/remove/{{ olympicsgame.city }}/{{ olympicsgame.year }}" class="btn-floating red"><i class="material-icons">delete</i></a></td>
 
 
   </tr>
-</table>
+</tbody>
+<tfoot>
+        <td colspan="3">
+          <div class="pagination">
+            <ul>
+              <li ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage()">« Prev</a>
+              </li>
+              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                <a href="#">{{n+1}}</a>
+              </li>
+              <li ng-class="nextPageDisabled()">
+                <a href ng-click="nextPage()">Next »</a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tfoot>
 
+
+
+
+
+
+</table>
+</div>
+</div>
 
 	
