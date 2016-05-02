@@ -2,7 +2,7 @@
 var read =""
 var write = ""
 var offset = 0
-var limit = 5
+var limit = 4
 var currentPage = 0
 var total = 0
 
@@ -157,7 +157,7 @@ app.controller("statusError", function initAPI($scope,$location,$routeParams){
 	}else if (status =="403"){
 		$scope.message= " You APIKEY isn't allowed, please correct you"
 	}else if (status =="409"){
-		$scope.message= " Exist this resource yet"
+		$scope.message= " This resource already exists"
 	}else if (status =="401"){
 		$scope.message= " You cannot access to olympicsgames API"
 	}else if (status =="400"){
