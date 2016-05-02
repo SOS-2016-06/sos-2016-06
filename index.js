@@ -23,14 +23,6 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-app.get("/",(req,res) => {
-var r = '<a href="/about">About Us</a></br>' +
-        '<a href="/time">Time</a>'
-  res.send(r);
-});
-
-
-
 //TODO REMOVE HTML
 app.use("/about", express.static(__dirname+'/static/about.html'));
 
