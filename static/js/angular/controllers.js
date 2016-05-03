@@ -1,6 +1,6 @@
 
-var read =""
-var write = ""
+var read ="user"
+var write = "userw"
 var offset = 0
 var limit = 4
 var currentPage = 0
