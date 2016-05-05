@@ -31,6 +31,7 @@ app.use("/about", express.static(__dirname+'/static/about.html'));
 //*************************************************************************
 
 app.use("/data/f1championships/RESTClient", express.static(__dirname+'/static/data/f1championships/RESTClient.html'));
+app.use("/f1championships", express.static(__dirname+'/static/data/f1championships/crud/Bocor'));
 
 var seriesleo = require('./lib/api-leo/series');
 app.use(seriesleo);
