@@ -1,36 +1,48 @@
-var save_method; //for save method string
-var searchby ="";
+var method;
+var search ="";
 var limit=3;
 
 $(document).ready(function() {
 
     $("#load").on("click", (()=>{
-      searchby = "";
+      search = "";
       loadInitialData();
-
     }));
 
-    $("#apikey").on("keypress", ((e)=>{
-        if(e.which == 13) {
-            searchby = "";
-            loadInitialData();
+    $("#table").on('click','td:nth-child(6) .btn-danger',function(event) {
+        var apikey=$("#apikey").val();
+        var $td= $(this).closest('tr').children('td');
+        var country= $td.eq(3).text();
+        var year= $td.eq(1).text();
+
+        $.ajax({
+            url : "/api/v1/f1championships/"+country+"/"+year+"?apikey="+apikey,
+            type: "DELETE",
+            dataType: "JSON",
+            error: function (jqXHR, textStatus, errorThrown){
+            if(jqXHR.status==403)
+                alert("Incorrect Apikey");
+            $('#btnSave').text('save');
+            $('#btnSave').attr('disabled',false);
         }
-    }));
+        });
+        load_table();
+    });
 
     $("#table").on('click','td:nth-child(6) .btn-primary',function(event) {
-        save_method = 'update';
+        method = 'update';
         var $td= $(this).closest('tr').children('td');
         var motor= $td.eq(0).text();
         var year= $td.eq(1).text();
         var pilot= $td.eq(2).text();
         var country= $td.eq(3).text();
         var wins= $td.eq(4).text();
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
+        $('#form')[0].reset();
+        $('.form-group').removeClass('has-error');
+        $('.help-block').empty();
         $("#country").prop( "disabled", true );
         $("#year").prop( "disabled", true );
-        //Ajax Load data from ajax
+
         $.ajax({
             url : "/api/v1/f1championships/"+country+"/"+year+"?apikey=userw",
             type: "GET",
@@ -41,49 +53,23 @@ $(document).ready(function() {
               $("#pilot").val(data.pilot);
               $("#country").val(data.country);
               $("#wins").val(data.wins);
-              $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-              $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
+              $('#modal_form').modal('show');
+              $('.modal-title').text('Edit');
             },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error get data from ajax');
-            }
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error ajax');
+            };
         });
-    }
-);
-
-    $("#table").on('click','td:nth-child(6) .btn-danger',function(event) {
-        var apikey=$("#apikey").val();
-        var $td= $(this).closest('tr').children('td');
-        var country= $td.eq(3).text();
-        var year= $td.eq(1).text();
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "/api/v1/f1championships/"+country+"/"+year+"?apikey="+apikey,
-            type: "DELETE",
-            dataType: "JSON",
-            error: function (jqXHR, textStatus, errorThrown)
-        {
-            if(jqXHR.status==403)
-                alert("The user has not write access. Try with another apikey");
-            $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable
-        }
-
-        });
-        load_table();
-    }
-);
-
+    });
 });
 
 function SearchYear(){
       $("#table td").remove();
       var apikey=$("#apikey").val();
-      urlend = "?from=" + $("#from").val() + "&to=" + $("#to").val();
+      url = "?from=" + $("#from").val() + "&to=" + $("#to").val();
       $.ajax({
           type: "GET",
-          url: '/api/v1/f1championships'+urlend+'&apikey=' + apikey,
+          url: '/api/v1/f1championships'+url+'&apikey=' + apikey,
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function (response) {
@@ -96,13 +82,13 @@ function SearchYear(){
       });
 }
 
-function add_person(){
-    save_method = 'add';
+function person(){
+    method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Add Pilot'); // Set Title to Bootstrap modal title
     $("#country").prop( "disabled", false );
     $("#year").prop( "disabled", false );
 }
@@ -111,12 +97,12 @@ function load_table(){
         $("#table td").remove();
         var apikey=$("#apikey").val();
         var table = [];
-        var urlend = "";
+        var url = "";
 
         if ($("#table td").length/6==0){
             $.ajax({
                 type: "GET",
-                url: '/api/v1/f1championships'+urlend+'?apikey=' + apikey+"&offset=0&limit="+limit,
+                url: '/api/v1/f1championships'+url+'?apikey=' + apikey+"&offset=0&limit="+limit,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -132,7 +118,7 @@ function load_table(){
         $("#table td").remove();
         $.ajax({
             type: "GET",
-            url: '/api/v1/f1championships'+urlend+'?apikey=' + apikey,
+            url: '/api/v1/f1championships'+url+'?apikey=' + apikey,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -150,14 +136,13 @@ function load_table(){
                    maxVisible: 5
                 }).on('page', function(event, num){
                     $("#table td").remove();
-                    urlend = "";
-                    if(searchby=="year" & $("#search").val())
-                            urlend = "/"+$("#search").val();
-                    else if(searchby=="silver" & $("#search").val())
-                            urlend = "/"+$("#search").val();
+                    url = "";
+                    if(search=="year" & $("#search").val())
+                            url = "/"+$("#search").val();
+
                     $.ajax({
                             type: "GET",
-                            url: '/api/v1/f1championships'+urlend+'?apikey=' + apikey+"&offset="+limit*(num-1)+"&limit="+limit,
+                            url: '/api/v1/f1championships'+url+'?apikey=' + apikey+"&offset="+limit*(num-1)+"&limit="+limit,
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (response) {
@@ -176,15 +161,15 @@ function load_table(){
 
 function save(){
     var apikey=$("#apikey").val();
-    $('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable
+    $('#btnSave').text('saving...');
+    $('#btnSave').attr('disabled',true);
     var country = $("#country").val();
     var year = $("#year").val();
     var motor = $("#motor").val();
     var pilot = $("#pilot").val();
     var wins = $("#wins").val();
 
-    if(save_method == 'add') {
+    if(method == 'add') {
          $.ajax({
         url : "/api/v1/f1championships?apikey="+apikey,
         type: "POST",
@@ -201,9 +186,7 @@ function save(){
 
         error: function (jqXHR, textStatus, errorThrown){
             if(jqXHR.status==409)
-                alert("There was a conflict: existing resource found, insert another country or year");
-            else if(jqXHR.status==400)
-                alert("Some of the fields are empty, review them");
+                alert("Conflict: resource already exists");
             $('#btnSave').text('save'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable
         }
@@ -223,11 +206,9 @@ function save(){
         },
         error: function (jqXHR, textStatus, errorThrown){
             if(jqXHR.status==404)
-                alert("The register was not found, review the country and the year");
-            else if(jqXHR.status==400)
-                alert("Some of the fields are empty, review them");
+                alert("Not Found!");
             else if(jqXHR.status==403)
-                alert("The user has not write access. Try with another apikey");
+                alert("Incorrect Apikey");
             $('#btnSave').text('save'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable
         }
@@ -250,6 +231,10 @@ function loadInitialData(){
                     trHTML += '<tr><td>' + item.motor + '</td><td>' + item.year + '</td><td>' + item.pilot + '</td><td>'  + item.country + '</td><td>'  + item.wins + '</td><td><a class="btn btn-sm btn-primary" title="Edit""><i class="glyphicon glyphicon-pencil"></i> Edit</a> <a class="btn btn-sm btn-danger" title="Hapus"><i class="glyphicon glyphicon-trash"></i> Delete</a></td></tr>';
                 });
                 $('#table').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+              if(jqXHR.status==403)
+                    alert("Incorrect Apikey");
             }
         });
     load_table();

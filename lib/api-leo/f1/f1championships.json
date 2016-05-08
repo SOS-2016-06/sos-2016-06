@@ -1,5 +1,7 @@
-[{"motor":"ferrari","year":2004,"pilot":"michaelSchumacher","country":"alemania","wins":13},
+[{"motor":"ferrari","year":2004,"pilot":"michaelSchumacher","country":"alemania","wins":16},
   {"motor":"renault","year":2006,"pilot":"fernandoAlonso","country":"spain","wins":7},
   {"motor":"renault","year":2010,"pilot":"sebastianVettel","country":"alemania","wins":5},
   {"motor":"honda","year":1991,"pilot":"ayrtonSenna","country":"brasil","wins":7},
-  {"motor":"mercedes","year":2015,"pilot":"lewisHamilton","country":"reinoUnido","wins":10}]
+  {"motor":"mercedes","year":2015,"pilot":"lewisHamilton","country":"reinoUnido","wins":10},
+  {"motor":"mercedes","year":1957,"pilot":"juanManuelFangio","country":"argentina","wins":1},
+  {"motor":"ferrari","year":2012,"pilot":"JacquesVilleneuve","country":"china","wins":18}]
