@@ -24,7 +24,7 @@ $(document).ready(function() {
                 alert("Incorrect Apikey");
             $('#btnSave').text('save');
             $('#btnSave').attr('disabled',false);
-        }
+          }
         });
         load_table();
     });
@@ -56,9 +56,10 @@ $(document).ready(function() {
               $('#modal_form').modal('show');
               $('.modal-title').text('Edit');
             },
-            error: function (jqXHR, textStatus, errorThrown){
+            error: function (jqXHR, textStatus, errorThrown)
+            {
                 alert('Error ajax');
-            };
+            }
         });
     });
 });
