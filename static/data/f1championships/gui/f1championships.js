@@ -83,7 +83,7 @@ function SearchYear(){
       });
 }
 
-function person(){
+function add(){
     method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
