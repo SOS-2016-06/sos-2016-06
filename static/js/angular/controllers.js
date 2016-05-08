@@ -81,34 +81,37 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 		$scope.prevPage = function(){
 			
-
-			currentPage = currentPage-1; 
-			offset= (currentPage*limit);
-			
+			if ((currentPage-1)>=0) {
 
 
-			 var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+				currentPage = currentPage-1; 
+				offset= (currentPage*limit);
+				
 
-			 	request.success(function(data) {
-		         $scope.olympicsgames = data; });
 
-			 	$scope.currentPage = currentPage
+				 var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+
+				 	request.success(function(data) {
+			         $scope.olympicsgames = data; });
+
+				 	$scope.currentPage = currentPage
+				 }
 
 
 		}
 
 		$scope.nextPage = function(){
 			
+			if ((currentPage+1)<=(total-1))
+				currentPage = currentPage+1; 
+				offset= (currentPage*limit);
 
-			currentPage = currentPage+1; 
-			offset= (currentPage*limit);
+				var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
 
-			var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+				 	request.success(function(data) {
+			         $scope.olympicsgames = data; });
 
-			 	request.success(function(data) {
-		         $scope.olympicsgames = data; });
-
-			 	$scope.currentPage = currentPage
+				 	$scope.currentPage = currentPage
 
 
 		}
@@ -155,7 +158,7 @@ app.controller("statusError", function initAPI($scope,$location,$routeParams){
 		$scope.message= " Not found, try later"
 
 	}else if (status =="403"){
-		$scope.message= " You APIKEY isn't allowed, please correct you"
+		$scope.message= " You APIKEY isn't allowed. Correct your api, please"
 	}else if (status =="409"){
 		$scope.message= " This resource already exists"
 	}else if (status =="401"){
@@ -200,7 +203,9 @@ app.controller("addOlympic", function addOlympic($scope,$location,$http){
 var request =$http.get('/api/v1/olympicsgames/loadInitialData?apikey='+write)
 
 		 	request.success(function(data) {
+
 	            $scope.olympicsgames = data;
+	            $location.url("/");
 	        });
 	        request.error(function(data, status, headers, config) {
 	            
