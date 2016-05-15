@@ -3,6 +3,14 @@ var app = express();
 var fs=require("fs");
 var request = require('request');
 
+var cors = require('cors');
+
+
+
+
+//CORS
+app.use(cors());
+
 //REQUEST
 //PROXY QUIQUE
 var paths1='/api/v1/divorces-spanish';
