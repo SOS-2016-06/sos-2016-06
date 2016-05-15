@@ -39,6 +39,10 @@ app.use(seriesleo);
 var f1 = require('./lib/api-leo/f1');
 app.use(f1);
 
+var sla = require('./lib/sla');
+app.use(sla);
+
+
 app.use("/about/f1championship", express.static(__dirname + '/static/f1championship.html'));
 
 app.get("/about/f1championshiprender",(req,res) => {
