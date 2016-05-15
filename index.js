@@ -1,6 +1,57 @@
 var express = require("express");
 var app = express();
 var fs=require("fs");
+var request = require('request');
+
+//REQUEST
+//PROXY QUIQUE
+var paths='/api/v1/divorces-spanish';
+var apiServerHost = 'http://sos-2016-10.herokuapp.com';
+
+
+app.use(paths, function(req, res) {
+  var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url+ req.method);
+
+
+  req.pipe( request(url,function(error, response, body){
+
+    if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res);
+
+
+ 
+});
+
+
+
+//PROXY LEO
+
+var paths='/api/v1/music';
+var apiServerHost = 'https://sos-2016-08.herokuapp.com';
+
+app.use(paths, function(req, res) {
+  var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url);
+ req.pipe( request(url,function(error, response, body){
+ if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res)
+});
+
+
+
 
 
 //JSON client
