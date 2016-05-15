@@ -5,12 +5,12 @@ var request = require('request');
 
 //REQUEST
 //PROXY QUIQUE
-var paths='/api/v1/divorces-spanish';
-var apiServerHost = 'http://sos-2016-10.herokuapp.com';
+var paths1='/api/v1/divorces-spanish';
+var apiServerHost1 = 'https://sos-2016-10.herokuapp.com';
 
 
-app.use(paths, function(req, res) {
-  var url = apiServerHost + req.baseUrl + req.url;
+app.use(paths1, function(req, res) {
+  var url = apiServerHost1 + req.baseUrl + req.url;
   console.log('piped: '+req.baseUrl + req.url+ req.method);
 
 
