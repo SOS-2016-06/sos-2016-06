@@ -3,7 +3,7 @@ $( document ).ready(function() {
 	console.log("jquery Ready")
 
     var request = $.ajax({
- 			url: '/api/v1/olympicsgames?apikey=user',
+ 			url: '/api/v1/olympicsgames?apikey=multiPlan_C2_sos-2016-06-jern_ag',
  			type:"GET",
 			contentType: "application/json",
  			

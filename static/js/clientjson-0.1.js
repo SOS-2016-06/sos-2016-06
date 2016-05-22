@@ -25,6 +25,9 @@ $( document ).ready(function() {
       	400: function (response) {
 					$( "#codestatus" ).text( "Bad Request" );
       	},
+      	402: function (response) {
+					$( "#codestatus" ).text( "You must pay" );
+      	},
       	401: function (response) {
 					$( "#codestatus" ).text( "Unauthorized" );
       	},

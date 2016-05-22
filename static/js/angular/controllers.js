@@ -1,6 +1,6 @@
 
-var read ="user"
-var write = "userw"
+var read ="user" //deprecated
+var write = "multiPlan_C2_sos-2016-06-jern_ag"
 var offset = 0
 var limit = 4
 var currentPage = 0
@@ -21,9 +21,9 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 
 
-		if (read != ""){
+		if (write != ""){
 
-			 	var request =$http.get('/api/v1/olympicsgames?apikey='+read)
+			 	var request =$http.get('/api/v1/olympicsgames?apikey='+write)
 
 			 	request.success(function(data) {
 			 		total = Math.ceil(data.length/limit)
@@ -43,7 +43,7 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 
 
-		        var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+		        var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
 			 	request.success(function(data) {
 		         $scope.olympicsgames = data; });
@@ -89,7 +89,7 @@ app.controller("searchTable", function appController($scope, $http, $location){
 				
 
 
-				 var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+				 var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
 				 	request.success(function(data) {
 			         $scope.olympicsgames = data; });
@@ -106,7 +106,7 @@ app.controller("searchTable", function appController($scope, $http, $location){
 				currentPage = currentPage+1; 
 				offset= (currentPage*limit);
 
-				var request =$http.get('/api/v1/olympicsgames?apikey='+read+'&limit='+limit+'&offset='+offset)
+				var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
 				 	request.success(function(data) {
 			         $scope.olympicsgames = data; });
@@ -137,10 +137,10 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 app.controller("initAPI", function initAPI($scope,$location){
 			
-	$scope.apiread = read
+	
 	$scope.apiwrite = write
 	$scope.changeAPI = function(){
-		read =  $scope.apiread
+		
 		write = $scope.apiwrite
 		$location.url("/");
 		
@@ -165,6 +165,8 @@ app.controller("statusError", function initAPI($scope,$location,$routeParams){
 		$scope.message= " You cannot access to olympicsgames API"
 	}else if (status =="400"){
 		$scope.message= " You cannot update neither city nor year "
+	}else if (status =="402"){
+		$scope.message= " You must pay for use API "
 	}
 	
 	
@@ -178,7 +180,7 @@ app.controller("statusError", function initAPI($scope,$location,$routeParams){
 app.controller("infoOlympic", function infoOlympic($scope,$routeParams,$location, $http){
 	var city = $routeParams.city
 	var year = $routeParams.year
-			var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+read)
+			var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+write)
 	
 
 		 	request.success(function(data) {
@@ -261,7 +263,7 @@ app.controller("editOlympic", function editOlympic($scope,$routeParams,$location
 
 		var city = $routeParams.city
 		var year = $routeParams.year
-		var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+read)
+		var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+write)
 	
 
 		request.success(function(data) {
@@ -313,7 +315,7 @@ app.controller("removeOlympic", function removeOlympic($scope,$routeParams,$loca
 
 		var city = $routeParams.city
 		var year = $routeParams.year
-		var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+read)
+		var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+write)
 	
 
 		request.success(function(data) {
@@ -361,7 +363,7 @@ app.controller("searchctrl", function searchctrl($scope,$location,$http){
 	$scope.searchavanced = function(){
 		var from = $scope.from
 		var to = $scope.to
-		var request =$http.get('/api/v1/olympicsgames/?apikey='+read+'&from='+from+'&to='+to)
+		var request =$http.get('/api/v1/olympicsgames/?apikey='+write+'&from='+from+'&to='+to)
 	
 
 		request.success(function(data) {
