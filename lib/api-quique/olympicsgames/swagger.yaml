@@ -1,0 +1,391 @@
+---
+swagger: "2.0"
+info:
+  description: "A sample API that uses a petstore as an example to demonstrate features\
+    \ in the swagger-2.0 specification"
+  version: "1.0.0"
+  title: "Olympics Games API"
+  termsOfService: "http://systerminal.com"
+  contact:
+    name: "systerminal API team"
+    url: "http://systerminal.com"
+    email: "joseenriqueruiznavarro@gmail.com"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "sos-2016-06.herokuapp.com"
+basePath: "/api/v1"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /olympicsgames:
+    get:
+      description: "Returns all olympics games from the system that the user has access to"
+      operationId: "findOlympicsGames"
+      produces:
+      - "application/json"
+      - "application/xml"
+      - "text/xml"
+      - "text/html"
+      parameters:
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+      - name: "from"
+        in: "query"
+        description: "filter from for data"
+        required: false
+        type: "integer"
+      - name: "to"
+        in: "query"
+        description: "filter to for data"
+        required: false
+        type: "integer"
+       
+        
+    
+      responses:
+        200:
+          description: "olympicsgames response"
+          
+        404:
+          description: "olympicsgames not found"
+          
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+
+    post:
+      description: "Create a new olympics game in the API.  Duplicates aren't allowed"
+      operationId: "addOlympicGame"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+
+      - in: "body"
+        name: "OlympicGame"
+        description: "OlympicGame to add to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/newOlympicGame"
+      responses:
+        200:
+          description: "OlympicGame created"
+          
+        404:
+          description: "olympicsgames not found"
+          
+
+        409:
+          description: "Already exists"
+          
+        400:
+          description: "bad request"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OlympicGame"
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+    delete:
+      description: "Delete all olympics games in the API."
+      operationId: "deleteOlympicGame"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+
+      responses:
+        200:
+          description: "OlympicsGames delete"
+         
+        404:
+          description: "olympicsgames not found"
+          
+
+        
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+  /olympicsgames/{city}:
+    get:
+      description: "Returns some Olympic Game based on a single City"
+      operationId: "findOlympicGameByCity"
+      produces:
+      - "application/json"
+      - "application/xml"
+      - "text/xml"
+      - "text/html"
+      parameters:
+      - name: "city"
+        in: "path"
+        description: "City of OlympicsGames to fetch"
+        required: true
+        type: "string"
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+      
+      responses:
+        200:
+          description: "olympicsgames response"
+          
+        404:
+          description: "olympicsgames not found"
+          
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+
+    
+    delete:
+      description: "Delete all olympics games in the API with city."
+      operationId: "deleteOlympicGame"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "city"
+        in: "path"
+        description: "City of OlympicsGames to fetch"
+        required: true
+        type: "string"
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+
+      responses:
+        200:
+          description: "OlympicsGames delete"
+         
+        404:
+          description: "olympicsgames not found"
+          
+
+        
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+
+
+  /olympicsgames/{city}/{year}:
+    get:
+      description: "Returns a Olympic Game based on a single City and year"
+      operationId: "findOlympicGameByCity"
+      produces:
+      - "application/json"
+      - "application/xml"
+      - "text/xml"
+      - "text/html"
+      parameters:
+      - name: "city"
+        in: "path"
+        description: "City of OlympicsGames to fetch"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "Year of OlympicsGames to fetch"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+      
+      responses:
+        200:
+          description: "olympicsgames response"
+          
+        404:
+          description: "olympicsgames not found"
+          
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+
+    
+    put:
+      description: "Update OlympicGame."
+      operationId: "deleteOlympicGame"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "city"
+        in: "path"
+        description: "City of OlympicsGames to fetch"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "Year of OlympicsGames to fetch"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "OlympicGame"
+        description: "OlympicGame to add to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/newOlympicGame"
+
+      responses:
+        200:
+          description: "OlympicsGames delete"
+         
+        404:
+          description: "olympicsgames not found"
+          
+
+        
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+    delete:
+      description: "Delete a olympics games in the API with city."
+      operationId: "deleteOlympicGame"
+      produces:
+      - "application/json"
+      - "application/xml"
+      - "text/xml"
+      - "text/html"
+      parameters:
+      - name: "city"
+        in: "path"
+        description: "City of OlympicsGames to fetch"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "Year of OlympicsGames to fetch"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "apikey"
+        in: "query"
+        description: "apikey for access"
+        required: true
+        type: "string"
+      
+      responses:
+        200:
+          description: "olympicsgames response"
+          
+        404:
+          description: "olympicsgames not found"
+          
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+
+
+
+
+
+
+
+
+
+
+definitions:
+  OlympicGame:
+    type: "object"
+    required:
+    - "city"
+    - "year"
+    properties:
+      city:
+        type: "string"
+      year:
+        type: "integer"
+        format: "int64"
+
+  newOlympicGame:
+    type: "object"
+    required:
+    - "city"
+    - "year"
+    properties:
+      city:
+        type: "string"
+      year:
+        type: "integer"
+        format: "int64"
+      sportsnumber:
+        type: "integer"
+        format: "int64"
+      athletes:
+        type: "integer"
+        format: "int64"
+      modality:
+        type: "string"
+
+      
+
+  errorModel:
+    type: "object"
+    required:
+    - "code"
+    - "message"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
