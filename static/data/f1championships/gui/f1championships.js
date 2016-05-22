@@ -20,8 +20,8 @@ $(document).ready(function() {
             type: "DELETE",
             dataType: "JSON",
             error: function (jqXHR, textStatus, errorThrown){
-            if(jqXHR.status==403)
-                alert("Incorrect Apikey");
+            if(jqXHR.status==402)
+                alert("Unauthorized! Incorrect Apikey");
             $('#btnSave').text('save');
             $('#btnSave').attr('disabled',false);
           }
@@ -30,6 +30,7 @@ $(document).ready(function() {
     });
 
     $("#table").on('click','td:nth-child(6) .btn-primary',function(event) {
+      var apikey=$("#apikey").val();
         method = 'update';
         var $td= $(this).closest('tr').children('td');
         var motor= $td.eq(0).text();
@@ -44,7 +45,7 @@ $(document).ready(function() {
         $("#year").prop( "disabled", true );
 
         $.ajax({
-            url : "/api/v1/f1championships/"+country+"/"+year+"?apikey=userw",
+            url : "/api/v1/f1championships/"+country+"/"+year+"?apikey="+apikey,
             type: "GET",
             dataType: "JSON",
             success: function(data){
@@ -208,8 +209,8 @@ function save(){
         error: function (jqXHR, textStatus, errorThrown){
             if(jqXHR.status==404)
                 alert("Not Found!");
-            else if(jqXHR.status==403)
-                alert("Incorrect Apikey");
+            else if(jqXHR.status==402)
+                alert("Unauthorized! Incorrect Apikey");
             $('#btnSave').text('save'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable
         }
@@ -221,6 +222,7 @@ function save(){
 function loadInitialData(){
     $("#table td").remove();
         var apikey=$("#apikey").val();
+
         $.ajax({
             type: "GET",
             url: '/api/v1/f1championships/loadInitialData?apikey=' + apikey,
@@ -234,8 +236,8 @@ function loadInitialData(){
                 $('#table').append(trHTML);
             },
             error: function (jqXHR, textStatus, errorThrown){
-              if(jqXHR.status==403)
-                    alert("Incorrect Apikey");
+              if(jqXHR.status==402)
+                    alert("Unauthorized! Incorrect Apikey");
             }
         });
     load_table();
