@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+<script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <title>InfoGajo Olympics Games</title>
+    <style>
+    .tooltip{
+  position: absolute; 
+  text-align: center; 
+  width: 13%; 
+  height:10%;   
+  padding: 2vw; 
+  font: 1.2vw sans-serif;   
+  border: 0px;          
+  border-radius: 8px;
+  color:black;
+  box-shadow: -3px 3px 15px #888888;
+  opacity:0;  
+
+}
+</style>
+<body>
+<div id = "svgContent"></div>
+
+<script>
+
+
+$(document).ready(function(){
+
+
+        var request = $.ajax({
+        url: '/api/v1/olympicsgames?apikey=user',
+        type:"GET",
+        contentType: "application/json",
+        
+        
+      });
+
+
+request.done(function(dataJson) {
+
+
+  data = [];
+
+  for (var i in dataJson){
+    item = dataJson[i];
+
+    itemwidget = {"name":item.city,"year":item.year, "athletes" : item.athletes}
+    data.push(itemwidget)
+
+  }
+
+
+console.log(data)
+
+/*
+var data = [{"name":"London","athletes":511},
+            {"name":"Athens","athletes":394},
+            {"name":"China","athletes":429},
+            {"name":"China","athletes":568},
+            {"name":"China","athletes":417},
+            {"name":"China","athletes":317}]          
+*/      
+
+
+
+
+
+
+var margin = {top:40,left:40,right:40,bottom:40};
+width = 300;
+height = 300;
+
+radius = Math.min(width-100,height-100)/2;
+
+var color = d3.scale.category10();//colores
+var arc = d3.svg.arc()  //defino la figura
+          .outerRadius(radius -230)
+        .innerRadius(radius - 50)
+     .cornerRadius(60);
+
+
+
+
+
+
+var a=width/2 - 20;
+var b=height/2 - 90;
+
+var svg = d3.select("#svgContent").append("svg")
+          .attr("viewBox", "0 0 " + width + " " + height/2)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+          .append("g")
+          .attr("transform","translate("+a+","+b+")");
+
+      div = d3.select("body")
+              .append("div") 
+              .attr("class", "tooltip");
+
+
+var pie = d3.layout.pie()
+          .sort(null)
+          .value(function(d){
+            
+            return d.athletes;})
+      .padAngle(.04); //separacion
+
+
+var currdata;
+
+var g = svg.selectAll(".gajo")
+        .data(pie(data))
+        .enter()
+        .append("g")
+        .attr("class","gajo")
+        
+
+
+
+         .on("mousemove",function(d){
+          var mouseVal = d3.mouse(this);
+
+          console.log(d.data.name)
+          
+          if (d3.event.shiftKey) {
+
+            var request = $.ajax({
+              url: '/api/v1/olympicsgames/'+d.data.name+'/'+d.data.year+'?apikey=user',
+              type:"GET",
+              contentType: "application/json",
+                
+              });
+
+
+            request.done(function(dataJson) {
+
+              console.log(dataJson)
+
+
+
+
+                div
+          .html("Name:"+dataJson.city+"</br> Year:"+dataJson.year+"</br>"+"Athletes:"+dataJson.athletes )
+            //.style("left", (d3.event.pageX+10) + "px")
+            //.style("top", (d3.event.pageY-10) + "px")
+            .style("opacity", 1)
+            .style("display","block");
+
+
+          })
+              
+          }
+
+
+          div.style("display","none");
+          div
+          .html("Name:"+d.data.name+"</br>"+"Atheles:"+d.data.athletes)
+            .style("left", (d3.event.pageX+10) + "px")
+            .style("top", (d3.event.pageY-10) + "px")
+            .style("opacity", 1)
+            .style("display","block");
+        })
+        .on("mouseout",function(){div.html(" ").style("display","none");});
+        
+        
+        
+    g.append("path")
+    .attr("d",arc)
+    .style("fill",function(d){return color(d.data.athletes);})
+     .attr("d", arc);
+
+
+});
+
+})
+
+
+</script>
+
+
+</body>
+</html>
