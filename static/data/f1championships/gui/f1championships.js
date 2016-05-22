@@ -22,6 +22,8 @@ $(document).ready(function() {
             error: function (jqXHR, textStatus, errorThrown){
             if(jqXHR.status==402)
                 alert("Unauthorized! Incorrect Apikey");
+            else if(jqXHR.status==429)
+                alert("Limit exceeded");
             $('#btnSave').text('save');
             $('#btnSave').attr('disabled',false);
           }
@@ -211,6 +213,8 @@ function save(){
                 alert("Not Found!");
             else if(jqXHR.status==402)
                 alert("Unauthorized! Incorrect Apikey");
+            else if(jqXHR.status==429)
+                alert("Limit exceeded");
             $('#btnSave').text('save'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable
         }
@@ -238,6 +242,8 @@ function loadInitialData(){
             error: function (jqXHR, textStatus, errorThrown){
               if(jqXHR.status==402)
                     alert("Unauthorized! Incorrect Apikey");
+              else if(jqXHR.status==429)
+                    alert("Limit exceeded");
             }
         });
     load_table();
