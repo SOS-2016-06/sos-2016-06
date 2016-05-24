@@ -15,7 +15,6 @@ info:
 host: "sos-2016-06.herokuapp.com"
 basePath: "/api/v1"
 schemes:
-- "http"
 - "https"
 consumes:
 - "application/json"
