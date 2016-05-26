@@ -1,11 +1,11 @@
 [{"city":"athens","year":1986,"sportsnumber":0,"athletes":0,"modality":"summer"},
  {"city":"paris","year":1900,"sportsnumber":3,"athletes":8,"modality":"summer"},
- {"city":"montreal","year":1976,"sportsnumber":13,"athletes":114,"modality":"summer"},
+ {"city":"ottawa","year":1976,"sportsnumber":13,"athletes":114,"modality":"summer"},
  {"city":"london","year":2012,"sportsnumber":23,"athletes":278,"modality":"summer"},
  {"city":"london","year":1948,"sportsnumber":9,"athletes":64,"modality":"winter"},
- {"city":"vancouver","year":2010,"sportsnumber":18,"athletes":7,"modality":"winter"},
- {"city":"tokio","year":1964,"sportsnumber":9,"athletes":53,"modality":"summer"},
- {"city":"pekin","year":2008,"sportsnumber":25,"athletes":286,"modality":"summer"},
-  {"city":"sochi","year":2014,"sportsnumber":7,"athletes":20,"modality":"winter"}
+ {"city":"rome","year":1960,"sportsnumber":16,"athletes":144,"modality":"summer"},
+ {"city":"tokyo","year":1964,"sportsnumber":9,"athletes":53,"modality":"summer"},
+ {"city":"beijing","year":2008,"sportsnumber":25,"athletes":286,"modality":"summer"},
+  {"city":"moscow","year":1980,"sportsnumber":16,"athletes":156,"modality":"summer"}
 
  ]
