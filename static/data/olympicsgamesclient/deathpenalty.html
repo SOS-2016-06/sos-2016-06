@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Death penalty in </title>
+
+
+
+<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+
+<!-- own libraries -->
+<script  src="/js/addCountry.js"></script>
+<script  src="/js/getDataAjax.js"></script>
+
+
+
+<!-- highchart libraries -->
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+
+<script type="text/javascript">
+	
+$(document).ready(function () {
+
+	var res; 
+
+
+		//take own data
+		dataown = $.getDataAjax("GET","/api/v1/olympicsgames?apikey=multiPlan_C2_sos-2016-06-jern_ag");
+
+		$.addCountryArray(dataown);
+
+		//take group12 data
+		data12 = $.getDataAjax("GET","/api/v1/death_penalty_stats?apikey=multiPlan_C4_sos-2016-12-arr_ag");
+		//PROXY
+
+		//create 
+		var data= []
+
+		for (var own in dataown){
+			var z =0;
+			
+			
+			for (var ext in data12){
+
+				console.log(dataown[own].country.toUpperCase()+" "+data12[ext].country.toUpperCase())
+
+
+				//if country, z take value
+				if(dataown[own].country.toUpperCase() == data12[ext].country.toUpperCase() ){
+
+					//console.log(data12[ext].murder_rate_per_100k_people +" " +dataown[own].country.toUpperCase())
+
+					z = data12[ext].murder_rate_per_100k_people
+
+				}
+
+
+				
+				
+			}
+			//create each item
+
+			item = { x: dataown[own].athletes,
+        						y: dataown[own].sportsnumber,
+        						z: z,
+        						name: dataown[own].country.substring(0, 2),
+        						country:dataown[own].country
+
+        					}
+    		data.push(item)
+
+
+		}
+
+
+
+console.log(data)
+
+
+ $('#container').highcharts({
+
+        chart: {
+            type: 'bubble',
+            plotBorderWidth: 1,
+            zoomType: 'xy'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        title: {
+            text: 'Death penalty in olympicsgames cities'
+        },
+
+        subtitle: {
+            text: 'Integrations '
+        },
+
+        xAxis: {
+            gridLineWidth: 1,
+            title: {
+                text: 'Athletes'
+            },
+            labels: {
+                format: '{value} Athletes'
+            },
+            plotLines: [{
+                color: 'black',
+                dashStyle: 'dot',
+                width: 3,
+                value: 0,
+                label: {
+                    rotation: 2,
+                    y: 15,
+                    style: {
+                        fontStyle: 'italic'
+                    },
+	                },
+                zIndex: 3
+            }]
+        },
+
+        yAxis: {
+            startOnTick: false,
+            endOnTick: false,
+            title: {
+                text: 'Sports number'
+            },
+            labels: {
+                format: '{value} Sports number'
+            },
+            maxPadding: 0.2,
+            plotLines: [{
+                color: 'black',
+                dashStyle: 'dot',
+                width: 2,
+                value: 50,
+                label: {
+                    align: 'right',
+                    style: {
+                        fontStyle: 'italic'
+                    },
+                    x: -10
+                },
+                zIndex: 3
+            }]
+        },
+
+        tooltip: {
+            useHTML: true,
+            headerFormat: '<table>',
+            pointFormat: '<tr><th colspan="2"><h3>{point.country}</h3></th></tr>' +
+                '<tr><th>Number athletes:</th><td>{point.x}Athletes</td></tr>' +
+                '<tr><th>Sports number:</th><td>{point.y} </td></tr>' +
+                '<tr><th>Murder rate:</th><td>{point.z} </td></tr>',
+            footerFormat: '</table>',
+            followPointer: true
+        },
+
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }
+        },
+
+        series: [{
+            data:data
+        }]
+
+    });
+
+
+
+
+
+
+} );
+
+
+
+
+
+</script>
+
+
+</head>
+<body>
+
+
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+</body>
+</html>
