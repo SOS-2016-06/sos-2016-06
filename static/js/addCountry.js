@@ -33,7 +33,14 @@ request.done(function(data, status){
 	
 	if (status=="success"){
 
-		object.country= data[0].name 
+		if (data[0].name =="United States"){
+			object.country= "EEUU"
+			
+
+		}else{
+
+			object.country= data[0].name 
+		}
 
 
 	}

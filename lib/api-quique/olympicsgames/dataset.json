@@ -3,9 +3,11 @@
  {"city":"ottawa","year":1976,"sportsnumber":13,"athletes":114,"modality":"summer"},
  {"city":"london","year":2012,"sportsnumber":23,"athletes":278,"modality":"summer"},
  {"city":"london","year":1948,"sportsnumber":9,"athletes":64,"modality":"winter"},
- {"city":"rome","year":1960,"sportsnumber":16,"athletes":144,"modality":"summer"},
+ {"city":"rome","year":2012,"sportsnumber":16,"athletes":144,"modality":"summer"},
  {"city":"tokyo","year":1964,"sportsnumber":9,"athletes":53,"modality":"summer"},
  {"city":"beijing","year":2008,"sportsnumber":25,"athletes":286,"modality":"summer"},
-  {"city":"moscow","year":1980,"sportsnumber":16,"athletes":156,"modality":"summer"}
+ {"city":"moscow","year":1980,"sportsnumber":16,"athletes":156,"modality":"summer"},
+ {"city":"moscow","year":2004,"sportsnumber":16,"athletes":156,"modality":"winter"},
+ {"city":"washington","year":2008,"sportsnumber":16,"athletes":156,"modality":"winter"}
 
  ]

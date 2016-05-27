@@ -13,8 +13,8 @@ app.use(cors());
 
 //REQUEST
 //PROXY QUIQUE
-var paths1='/api/v1/divorces-spanish';
-var apiServerHost1 = 'https://sos-2016-10.herokuapp.com';
+var paths1='/api/v1/death_penalty_stats';
+var apiServerHost1 = 'https://sos-2016-12.herokuapp.com';
 
 
 app.use(paths1, function(req, res) {
@@ -36,6 +36,12 @@ app.use(paths1, function(req, res) {
 
 
 });
+
+
+
+
+
+
 
 
 
