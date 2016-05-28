@@ -45,6 +45,9 @@ request.done(function(data, status){
 		}else{
 
 			object.country= data[0].name
+			object.lat= data[0].latlng[0]
+			object.long= data[0].latlng[1]
+
 			object.code= data[0].alpha3Code 
 		}
 

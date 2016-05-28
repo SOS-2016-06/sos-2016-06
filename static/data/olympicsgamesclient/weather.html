@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Death penalty in </title>
+
+
+
+<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+
+<!-- own libraries -->
+<script  src="/js/addCountry.js"></script>
+<script  src="/js/getDataAjax.js"></script>
+
+
+
+<!-- google libraries -->
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+
+<script>
+
+$(document).ready(function(){
+
+    var dataown = $.getDataAjax("GET","/api/v1/olympicsgames?apikey=multiPlan_C2_sos-2016-06-jern_ag");
+   
+          //console.log(dataJson)
+
+    //add features from external API
+    $.addCountryArray(dataown);
+
+
+    var external = $.getDataAjax("GET","http://api.openweathermap.org/data/2.5/weather?q=tokyo&APPID=d5cdbeebc51a4cae35d8f0ed79b12245&units=metric");
+   
+
+    var images=[]
+
+    //create images for map
+    for (var i in dataown){
+
+      item = dataown[i];
+      var external = $.getDataAjax("GET","//api.openweathermap.org/data/2.5/weather?q="+item.city+","+item.country+"&APPID=d5cdbeebc51a4cae35d8f0ed79b12245&units=metric");
+
+
+
+      var image =  {
+          latitude: external.coord.lat,
+          longitude: external.coord.lon,
+          imageURL: getURLicon(external.weather[0].main),
+          width: 32,
+          height: 32,
+          label: item.city+" +" +external.main.temp_min +"C"
+      }
+
+
+      images.push(image)
+
+
+    }
+
+    
+   
+
+      
+          
+
+
+
+
+
+
+      var map = AmCharts.makeChart( "chartdiv", {
+
+  type: "map",
+  "theme": "light",
+
+  dataProvider: {
+    map: "worldLow",
+    zoomLevel: 1.5,
+    zoomLongitude: 10,
+    zoomLatitude: 52,
+    images: images
+  },
+
+  imagesSettings: {
+    labelRollOverColor: "#000",
+    labelPosition: "bottom"
+  },
+
+  areasSettings: {
+    rollOverOutlineColor: "#FFFFFF",
+    rollOverColor: "#CC0000",
+    alpha: 0.8
+  },
+
+  "export": {
+    "enabled": true
+  }
+} );
+//enddocument
+
+
+
+
+
+
+function getURLicon(weather){
+
+  //weather.main
+
+
+  if (weather.toUpperCase()== "Clear".toUpperCase()){
+
+    return "//www.amcharts.com/images/weather/weather-clear.png"
+  }else if (weather.toUpperCase()== "Clouds".toUpperCase()){
+
+    return "//www.amcharts.com/images/weather/weather-clouds.png"
+  }else if (weather.toUpperCase()== "Mist".toUpperCase()){
+
+    return "//www.amcharts.com/images/weather/weather-storm.png"
+  }
+  else if (weather.toUpperCase()== "Rain".toUpperCase()){
+
+    return "//www.amcharts.com/images/weather/weather-rain.png"
+  }else{
+
+    return "//www.amcharts.com/images/weather/weather-showers.png"
+
+  }
+
+
+}
+
+     });  
+
+
+</script>
+
+
+
+
+
+</head>
+<body>
+
+<h1>Wheather in olympics games cities</h1>
+
+<div id="chartdiv" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+</body>
+</html>
