@@ -14,54 +14,46 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 
 		
-		$scope.range = function(){
 
-			return $scope.init
-		}
+		//calculate total resource
+		var request =$http.get('/api/v1/olympicsgames?apikey='+write)
+
+		request.success(function(data) {
+		total = Math.ceil(data.length/limit)
+
+		//create array number pags ie 0,1,2,3
+		$scope.init = Array.apply(null, Array(Math.ceil(data.length/limit))).map(function (_, i) {return i;});
+		});
 
 
-
-		if (write != ""){
-
-			 	var request =$http.get('/api/v1/olympicsgames?apikey='+write)
-
-			 	request.success(function(data) {
-			 		total = Math.ceil(data.length/limit)
-		            //$scope.olympicsgames = data;
-		            $scope.init = Array.apply(null, Array(Math.ceil(data.length/limit))).map(function (_, i) {return i;});
-		            
-		            
-		            
-		        });
-		        request.error(function(data, status, headers, config) {
-		            
-		            $location.url("/error/"+status);
-		            
-
-		           
-		        });
+		request.error(function(data, status, headers, config) {
+		 $location.url("/error/"+status);
+		  });
 
 
 
-		        var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
+		        
+	var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
 			 	request.success(function(data) {
 		         $scope.olympicsgames = data; });
-		}
+		
+
+		//Set page to n page
 
 
 	    $scope.setPage = function(n){
 
-	    	if(currentPage>n){
+	    	//set global var
+
+	    	//offset always is calculated
+
+	    	//currentpage always is n here 
+
+	    	if(currentPage>n || currentPage<n){
 	    		offset= (n*limit);
 	    		currentPage = n;
 	    		console.log(">")
-
-	    	}else if(currentPage<n){
-	    		offset =(n*limit);
-	    		currentPage = n; 
-	    		console.log("<")
-
 
 	    	}else{
 	    		offset=offset
@@ -74,20 +66,22 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 	    	
 			
-		} 
+		}; 
 
 
 
 
 		$scope.prevPage = function(){
 			
+			//if not the first
 			if ((currentPage-1)>=0) {
 
+				//Current decreases in 1
 
 				currentPage = currentPage-1; 
 				offset= (currentPage*limit);
 				
-
+				//request and change olimpicsgames(it is the fundamental scope)
 
 				 var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
@@ -101,10 +95,18 @@ app.controller("searchTable", function appController($scope, $http, $location){
 		}
 
 		$scope.nextPage = function(){
+
+			//if not the last
 			
 			if ((currentPage+1)<=(total-1))
+
+				//Current increases in 1
+				//
 				currentPage = currentPage+1; 
 				offset= (currentPage*limit);
+
+
+				//request and change olimpicsgames(it is the fundamental scope)
 
 				var request =$http.get('/api/v1/olympicsgames?apikey='+write+'&limit='+limit+'&offset='+offset)
 
@@ -116,6 +118,8 @@ app.controller("searchTable", function appController($scope, $http, $location){
 
 		}
 
+
+		//Control class materialize
 		$scope.nextPageDisabled = function() {
     	return $scope.currentPage === total-1 ? "disabled" : "";
   		};
@@ -151,7 +155,7 @@ app.controller("initAPI", function initAPI($scope,$location){
 
 
 app.controller("statusError", function initAPI($scope,$location,$routeParams){
-			
+	//make params url	
 	var status = $routeParams.status
 
 	if(status =="404"){
@@ -178,6 +182,7 @@ app.controller("statusError", function initAPI($scope,$location,$routeParams){
 
 
 app.controller("infoOlympic", function infoOlympic($scope,$routeParams,$location, $http){
+	//make params url
 	var city = $routeParams.city
 	var year = $routeParams.year
 			var request =$http.get('/api/v1/olympicsgames/'+city+'/'+year+'?apikey='+write)
@@ -200,7 +205,10 @@ app.controller("infoOlympic", function infoOlympic($scope,$routeParams,$location
 
 app.controller("addOlympic", function addOlympic($scope,$location,$http){
 	$scope.textButton = "Add Olympic";
-	$scope.olympic = {};
+	$scope.olympic = {};//init empty object. after add here
+
+	//here load data because load is add
+
 	$scope.load = function(){
 var request =$http.get('/api/v1/olympicsgames/loadInitialData?apikey='+write)
 
@@ -221,7 +229,10 @@ var request =$http.get('/api/v1/olympicsgames/loadInitialData?apikey='+write)
 	}
 
 
-	$scope.newUser = function(){
+	//send post with data
+
+
+	$scope.newolympic = function(){
 
 			
 
@@ -260,6 +271,9 @@ app.controller("editOlympic", function editOlympic($scope,$routeParams,$location
 	
 	$scope.textButton = "Edit olympic";
 
+	//first search and after edit
+
+
 
 		var city = $routeParams.city
 		var year = $routeParams.year
@@ -276,7 +290,7 @@ app.controller("editOlympic", function editOlympic($scope,$routeParams,$location
 	        });
 
 
-	$scope.editUser = function(){
+	$scope.editOlympic = function(){
 		
 		var datasend = {
 				city: $scope.olympic.city ,
@@ -311,7 +325,7 @@ app.controller("editOlympic", function editOlympic($scope,$routeParams,$location
 
 app.controller("removeOlympic", function removeOlympic($scope,$routeParams,$location,$http){
 	
-
+		//first search and after remove
 
 		var city = $routeParams.city
 		var year = $routeParams.year
