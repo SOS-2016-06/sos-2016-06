@@ -134,25 +134,6 @@ app.use(paths2, function(req, res) {
 });
 
 
-// Proxy Iframe Governify
-var paths3='/app/#/portal';
-var apiServerHost3 = 'https://portal.governify.io';
-
-app.use(paths3, function(req, res) {
-  var url = apiServerHost3 + req.baseUrl + req.url;
-  console.log('piped: '+req.baseUrl + req.url);
- req.pipe( request(url,function(error, response, body){
- if (error) {
-         console.log(error);
-        res.sendStatus(503); // Service Unavailable
-    } else {
-       console.log("OK");
-     }
- })
- ).pipe(res)
-});
-
-
 
 
 //JSON client
