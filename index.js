@@ -135,7 +135,7 @@ app.use(paths2, function(req, res) {
 
 
 // Proxy Iframe Governify
-var paths3='/app/#/portal?configurl=http:%2F%2Flabs.isa.us.es%2Fir%2Fleobernal91%2FGovernify-API%2FPlans%2Fportal-config.json';
+var paths3='/app/#/portal';
 var apiServerHost3 = 'https://portal.governify.io';
 
 app.use(paths3, function(req, res) {
