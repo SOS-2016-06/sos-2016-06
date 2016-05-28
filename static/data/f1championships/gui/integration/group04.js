@@ -4,7 +4,7 @@ var arr3 = [];
 $(document).ready(() => {
 
   var request_06 = $.ajax({
-    url: '/api/v1/f1championships?apikey=multiPlan_C1_sos-2016-06-lbb_ag',
+    url: 'https://sos-2016-06.herokuapp.com/api/v1/f1championships?apikey=multiPlan_C1_sos-2016-06-lbb_ag',
     type:"GET",
     contentType: "application/json",
   });
