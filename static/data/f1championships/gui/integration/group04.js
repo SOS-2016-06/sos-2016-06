@@ -4,13 +4,13 @@ var arr3 = [];
 $(document).ready(() => {
 
   var request_06 = $.ajax({
-    url: 'https://sos-2016-06.herokuapp.com/api/v1/f1championships?apikey=multiPlan_C1_sos-2016-06-lbb_ag',
+    url: '/api/v1/f1championships?apikey=multiPlan_C1_sos-2016-06-lbb_ag',
     type:"GET",
     contentType: "application/json",
   });
 
   var request_04 = $.ajax({
-    url: 'http://sos-2016-04.herokuapp.com/api/v1/population-percentage-by-age?apikey=multiPlan_C4_sos-2016-04-jmt_ag',
+    url: '/api/v1/population-percentage-by-age?apikey=multiPlan_C4_sos-2016-04-jmt_ag',
     type:"GET",
     contentType: "application/json",
   });

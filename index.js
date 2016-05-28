@@ -115,6 +115,24 @@ app.use(paths, function(req, res) {
  ).pipe(res)
 });
 
+// Proxy Group 04
+var paths2='/api/v1/population-percentage-by-age';
+var apiServerHost2 = 'https://sos-2016-04.herokuapp.com';
+
+app.use(paths2, function(req, res) {
+  var url = apiServerHost2 + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url);
+ req.pipe( request(url,function(error, response, body){
+ if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res)
+});
+
 
 
 
