@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Participants</title>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+
+<!-- own libraries -->
+<script  src="/js/addCountry.js"></script>
+<script  src="/js/getDataAjax.js"></script>
+
+
+
+<!-- morris libraries -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+	
+$(document).ready(function () {
+
+	var res; 
+
+
+		//take own data
+		dataown = $.getDataAjax("GET","/api/v1/olympicsgames?apikey=multiPlan_C2_sos-2016-06-jern_ag");
+
+		$.addCountryArray(dataown);
+
+		//take group05 data
+		data05 = $.getDataAjax("GET","//sos-2016-05.herokuapp.com/api/v1/participants-number?apikey=multiPlan_C4_sos-2016-05-egf_ag");
+
+
+		//create 
+		var data= []
+
+		for (var own in dataown){
+			var male =0;
+			var female =0;
+			
+			for (var ext in data05){
+
+				//if match, then has value silver and gold
+				if(dataown[own].country == data05[ext].country  && dataown[own].year == data05[ext].year){
+
+					male= parseInt(data05[ext].maleathletesnumber)
+					female = parseInt(data05[ext].femaleathletesnumber)
+				}
+
+
+				
+				
+			}
+
+			//create each item
+
+			item = { y: dataown[own].city+dataown[own].year.toString().slice(-2),//the two last yeaar number
+        						a: dataown[own].athletes,
+        						b: male,
+        						c: female}
+    		data.push(item)
+
+
+		}
+
+
+
+
+		 Morris.Bar({
+         element: 'morris',
+         data: data,
+         xkey: 'y',
+         ykeys: ['a', 'b','c'],
+         labels: ['Athletes', 'male', 'female']
+      	});
+
+
+
+
+
+
+
+
+
+
+
+
+} );
+
+
+
+
+
+</script>
+
+
+</head>
+<body>
+<nav class="red darken-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">sos-2016-06</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/about">About us</a></li>
+      </ul>
+
+      
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+
+      <h1 class="header center red-text">Participant in olympics game (group 05)</h1>
+      <div class="row center">
+        <a href="/olympicsgames/" id="download-button" class="btn-large waves-effect waves-light red">Back to Home</a>
+        <a href="/olympicsgames/integrations/worldbank.html" id="download-button" class="btn-large waves-effect waves-light red">Access Electricity </a>
+        <a href="/olympicsgames/integrations/deathpenalty.html" id="download-button" class="btn-large waves-effect waves-light red">Death penalty </a>
+        <a href="/olympicsgames/integrations/weather.html" id="download-button" class="btn-large waves-effect waves-light red">Weather </a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   CHART   -->
+      
+<a href="http://portal.governify.io/app/#/portal?configurl=http:%2F%2Flabs.isa.us.es%2Fir%2Fenriqueeerrr%2FGovernify-API%2FPlans%2Fportal-config.json	" id="download-button" class="btn-large waves-effect waves-light red">Plans </a> sos-2016-05-egf
+      <div id="morris" style="height: 250px;"></div>
+
+       
+      </div>
+
+    </div>
+    <br><br>
+
+    <div class="section">
+
+    </div>
+  </div>
+
+  <footer class="page-footer grey lighten-1">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bio</h5>
+          <p class="grey-text text-lighten-4">
+            This is views about my educational API. 
+          </p>
+
+
+        </div>
+
+        <div class="col l3 s12">
+          
+        </div>
+
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="https://twitter.com/quiqueruizna">Twitter</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="black-text text-lighten-3" href="http://systerminal.com">Jose Enrique Ruiz Navarro</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+  </body>
+</html>

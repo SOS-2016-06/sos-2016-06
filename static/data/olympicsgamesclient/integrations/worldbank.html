@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Access electricity in olympics games cities  </title>
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+
+<!-- own libraries -->
+<script  src="/js/addCountry.js"></script>
+<script  src="/js/getDataAjax.js"></script>
+
+
+
+<!-- google libraries -->
+
+<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
+
+
+
+
+<script>
+
+$(document).ready(function(){
+
+
+      var request = $.ajax({
+      url: '/api/v1/olympicsgames?apikey=multiPlan_C2_sos-2016-06-jern_ag',
+      type:"GET",
+      contentType: "application/json",
+      
+      
+    });
+
+
+      request.done(function(dataJson) {
+          //console.log(dataJson)
+          
+
+    google.charts.load('current', { 'packages': ['map'] });
+    google.charts.setOnLoadCallback(drawMap);
+
+
+
+      function drawMap() {
+
+
+
+        var dataresult = [["Country","Access to electricity (% of population)"]];
+      
+        $.addCountryArray(dataJson);//syn
+
+
+      
+        for (var i in dataJson){
+
+            //search external API
+            externalcountrydata= $.getDataAjax("GET","/countries/"+dataJson[i].code+"/indicators/TX.VAL.TECH.MF.ZS?date=2014&format=json"); //syn
+
+
+            item = dataJson[i];
+           
+           var itemforwidget = [item.country, item.country+": "+ externalcountrydata[1][0].value] //find by tree (only 1 object)
+           dataresult.push(itemforwidget)
+
+      }
+
+
+
+
+        var data = google.visualization.arrayToDataTable(dataresult);
+
+        var options = { showTip: true };
+
+        var map = new google.visualization.Map(document.getElementById('chart_div'));
+
+        map.draw(data, options);
+      }
+
+
+      
+          
+
+    } );
+//enddocument
+
+     });  
+
+
+</script>
+
+
+
+
+
+</head>
+<body>
+<nav class="red darken-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">sos-2016-06</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/about">About us</a></li>
+      </ul>
+
+      
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+
+      <h1 class="header center red-text">Access to electricity (% of population) in olympics games cities</h1>
+      <div class="row center">
+        <a href="/olympicsgames/" id="download-button" class="btn-large waves-effect waves-light red">Back to Home</a>
+        <a href="/olympicsgames/integrations/participant.html" id="download-button" class="btn-large waves-effect waves-light red">Participants</a>
+        <a href="/olympicsgames/integrations/deathpenalty.html" id="download-button" class="btn-large waves-effect waves-light red">Death penalty </a>
+        <a href="/olympicsgames/integrations/weather.html" id="download-button" class="btn-large waves-effect waves-light red">Weather </a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   CHART   -->
+      
+
+
+<div id="chart_div" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>       
+
+
+       
+      </div>
+
+    </div>
+    <br><br>
+
+    <div class="section">
+
+    </div>
+  </div>
+
+  <footer class="page-footer grey lighten-1">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bio</h5>
+          <p class="grey-text text-lighten-4">
+            This is views about my educational API. 
+          </p>
+
+
+        </div>
+
+        <div class="col l3 s12">
+          
+        </div>
+
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="https://twitter.com/quiqueruizna">Twitter</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="black-text text-lighten-3" href="http://systerminal.com">Jose Enrique Ruiz Navarro</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+  </body>
+</html>
