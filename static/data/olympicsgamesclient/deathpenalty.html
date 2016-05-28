@@ -47,7 +47,6 @@ $(document).ready(function () {
 			
 			for (var ext in data12){
 
-				console.log(dataown[own].country.toUpperCase()+" "+data12[ext].country.toUpperCase())
 
 
 				//if country, z take value
@@ -79,7 +78,6 @@ $(document).ready(function () {
 
 
 
-console.log(data)
 
 
  $('#container').highcharts({
@@ -156,7 +154,7 @@ console.log(data)
             useHTML: true,
             headerFormat: '<table>',
             pointFormat: '<tr><th colspan="2"><h3>{point.country}</h3></th></tr>' +
-                '<tr><th>Number athletes:</th><td>{point.x}Athletes</td></tr>' +
+                '<tr><th>Number athletes:</th><td>{point.x} Athletes</td></tr>' +
                 '<tr><th>Sports number:</th><td>{point.y} </td></tr>' +
                 '<tr><th>Murder rate:</th><td>{point.z} </td></tr>',
             footerFormat: '</table>',

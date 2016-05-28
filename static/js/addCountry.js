@@ -13,6 +13,10 @@ $.addCountryArray = function (array){
 }
 
 
+
+
+
+
 function addCountry(object){
 	
 	
@@ -35,11 +39,13 @@ request.done(function(data, status){
 
 		if (data[0].name =="United States"){
 			object.country= "EEUU"
+			object.code= "USA"
 			
 
 		}else{
 
-			object.country= data[0].name 
+			object.country= data[0].name
+			object.code= data[0].alpha3Code 
 		}
 
 

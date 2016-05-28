@@ -37,6 +37,30 @@ app.use(paths1, function(req, res) {
 
 });
 
+//proxy for wordbank
+
+var paths2='/countries';
+var apiServerHost2 = 'http://api.worldbank.org/';
+
+app.use(paths2, function(req, res) {
+  var url = apiServerHost2 + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url+ req.method);
+
+
+  req.pipe( request(url,function(error, response, body){
+
+    if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res);
+
+
+
+});
 
 
 
