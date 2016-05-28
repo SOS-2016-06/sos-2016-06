@@ -63,6 +63,33 @@ app.use(paths2, function(req, res) {
 });
 
 
+//proxy for wheather
+
+var paths3='/data/2.5/weather';
+var apiServerHost3 = 'http://api.openweathermap.org';
+
+app.use(paths3, function(req, res) {
+  var url = apiServerHost3 + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url+ req.method);
+
+
+  req.pipe( request(url,function(error, response, body){
+
+    if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res);
+
+
+
+});
+
+
+
 
 
 

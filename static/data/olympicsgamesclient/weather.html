@@ -40,7 +40,7 @@ $(document).ready(function(){
     for (var i in dataown){
 
       item = dataown[i];
-      var external = $.getDataAjax("GET","//api.openweathermap.org/data/2.5/weather?q="+item.city+","+item.country+"&APPID=d5cdbeebc51a4cae35d8f0ed79b12245&units=metric");
+      var external = $.getDataAjax("GET","/data/2.5/weather?q="+item.city+","+item.country+"&APPID=d5cdbeebc51a4cae35d8f0ed79b12245&units=metric");
 
 
 
