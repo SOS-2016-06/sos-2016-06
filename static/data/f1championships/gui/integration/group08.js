@@ -19,27 +19,32 @@ $(document).ready(() => {
     $.each(response, function (i, item) { // Recorremos la respuesta y obtenemos el "i" y cada elemento JSON "item"
         dataW.push([item.country,item.year]);
     });
-  });
 
-  request_08.done(function(response) {
-    $.each(response, function (i, item) {
-        dataW.push([item.country,item.year]);
+    request_08.done(function(response) {
+      $.each(response, function (i, item) {
+          dataW.push([item.country,item.year]);
+      });
+
+
+        // Widget Google Chart
+        google.charts.load('current', {'packages': ['geochart']});
+        google.charts.setOnLoadCallback(drawMarkersMap);
+
+        function drawMarkersMap() {
+          var data = google.visualization.arrayToDataTable(dataW);
+          var options = {
+            displayMode: 'markers',
+            colorAxis: {colors: ['green','blue', 'red']}
+          };
+
+          var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+        };
+
     });
   });
 
-  // Widget Google Chart
-  google.charts.load('current', {'packages': ['geochart']});
-  google.charts.setOnLoadCallback(drawMarkersMap);
 
-  function drawMarkersMap() {
-    var data = google.visualization.arrayToDataTable(dataW);
-    var options = {
-      displayMode: 'markers',
-      colorAxis: {colors: ['green','blue', 'red']}
-    };
 
-    var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  };
 
 });
