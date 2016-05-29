@@ -154,8 +154,8 @@ app.use(paths10, function(req, res) {
 
 
 // Api external 2
-var paths20='/api/topten/rating';
-var apiServerHost20 = 'http://tools.fifaguide.com';
+var paths20='/rest/v1/currency/eur';
+var apiServerHost20 = 'https://restcountries.eu';
 
 app.use(paths20, function(req, res) {
   var url = apiServerHost20 + req.baseUrl + req.url;

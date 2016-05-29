@@ -2,7 +2,7 @@ var arr = [];
 $(document).ready(() => {
 
   var request = $.ajax({
-    url: '/api/topten/rating',
+    url: '/rest/v1/currency/eur',
     type:"GET",
     contentType: "application/json",
   });
@@ -10,29 +10,23 @@ $(document).ready(() => {
 
   request.done(function(response) {
     $.each(response, function (i, item) { // Recorremos la respuesta y obtenemos el "i" y cada elemento JSON "item"
-      arr.push({"first_name":item.first_name, "rating": parseInt(item.rating)});
+      arr.push({"capital":item.capital, "population": parseInt(item.population)});
     });
-    var chart = AmCharts.makeChart( "chartdiv", {
+
+      var chart = AmCharts.makeChart( "chartdiv", {
     "type": "pie",
     "theme": "light",
-    "titles": [ {
-      "text": "Visitors countries",
-      "size": 16
-    } ],
     "dataProvider": arr,
-    "valueField": "rating",
-    "titleField": "first_name",
-    "startEffect": "elastic",
-    "startDuration": 2,
-    "labelRadius": 15,
-    "innerRadius": "50%",
-    "depth3D": 10,
+    "valueField": "population",
+    "titleField": "capital",
+    "outlineAlpha": 0.4,
+    "depth3D": 15,
     "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-    "angle": 15,
+    "angle": 30,
     "export": {
       "enabled": true
     }
-  });
+  } );
   jQuery( '.chart-input' ).off().on( 'input change', function() {
     var property = jQuery( this ).data( 'property' );
     var target = chart;
@@ -45,7 +39,8 @@ $(document).ready(() => {
 
     target[ property ] = value;
     chart.validateNow();
-  });
+  } );
+
   });
 
 });
