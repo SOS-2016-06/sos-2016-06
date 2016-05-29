@@ -134,6 +134,24 @@ app.use(paths4, function(req, res) {
 });
 
 
+// Api external 1
+var paths10='/1.0/population/2015/Spain';
+var apiServerHost10 = 'http://api.population.io';
+
+app.use(paths10, function(req, res) {
+  var url = apiServerHost10 + req.baseUrl + req.url;
+  console.log('piped: '+req.baseUrl + req.url);
+ req.pipe( request(url,function(error, response, body){
+ if (error) {
+         console.log(error);
+        res.sendStatus(503); // Service Unavailable
+    } else {
+       console.log("OK");
+     }
+ })
+ ).pipe(res)
+});
+
 
 
 //JSON client
